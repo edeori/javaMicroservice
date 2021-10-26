@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres:10.5
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    
+#  dbservice:
+#    image:
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://database/${DB_NAME}"
+#      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+#      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+#    ports:
+#      - "8085:8080"
+#      
+#  dbservice2:
+#    image:
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://database/${DB_NAME}"
+#      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+#      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+#      DB_SERVICE_URL: "http://dbservice:8080"
+    
+volumes:
+  database-data:
