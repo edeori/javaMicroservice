@@ -9,7 +9,8 @@ public enum JobActivity {
 	PHYSICAL,
 	MENTAL,
 	TRADE,
-	DRIVING;
+	DRIVING,
+	RETIRED;
 
 	@JsonValue
 	@Override

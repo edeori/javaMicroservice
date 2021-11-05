@@ -16,7 +16,7 @@ public class PatientDataEntity {
 
 	@Id
 	private String id;
-	private Genre genre;
+	private Gender gender;
 	private String dateOfBirth;
 	private Double weight;
 	private Double height;
@@ -72,12 +72,12 @@ public class PatientDataEntity {
 		this.id = id;
 	}
 
-	public Genre getGenre() {
-		return genre;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public String getDateOfBirth() {

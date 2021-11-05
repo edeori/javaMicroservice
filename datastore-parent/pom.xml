@@ -1,146 +1,155 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>hu.microservice.medicare</groupId>
-	<artifactId>datastore-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>DataStore Service</name>
-	<description>Parent artifact for DataStore Service</description>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.microservice.medicare</groupId>
+    <artifactId>datastore-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>DataStore Service</name>
+    <description>Parent artifact for DataStore Service</description>
 
-	<modules>
-		<module>datastore-api</module>
-		<module>datastore-application</module>
-		<module>datastore-persistence</module>
-		<module>datastore-service</module>
-		<module>datastore-web</module>
-	</modules>
+    <modules>
+        <module>datastore-api</module>
+        <module>datastore-application</module>
+        <module>datastore-persistence</module>
+        <module>datastore-service</module>
+        <module>datastore-web</module>
+    </modules>
 
-	<properties>
-		<application.package>none</application.package>
-		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-		<maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-		<maven.compiler.source>15</maven.compiler.source>
-		<maven.compiler.target>15</maven.compiler.target>
-		<docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<spring.boot.version>2.4.4</spring.boot.version>
-		<springdoc.version>1.5.9</springdoc.version>
-		<spring.security.version>5.4.6</spring.security.version>
-	</properties>
+    <properties>
+        <application.package>none</application.package>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+        <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring.boot.version>2.4.4</spring.boot.version>
+        <springdoc.version>1.5.9</springdoc.version>
+        <spring.security.version>5.4.6</spring.security.version>
+        <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>
+    </properties>
 
-	<dependencyManagement>
-		<dependencies>
-		
-			<!-- DataStore API modules -->
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>datastore-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+    <dependencyManagement>
+        <dependencies>
 
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>datastore-application</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+            <!-- DataStore API modules -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>datastore-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>datastore-persistence</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>datastore-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>datastore-service</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>datastore-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>datastore-web</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>datastore-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<!-- External -->
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-ui</artifactId>
-				<version>${springdoc.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>datastore-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<!-- BOM -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+            <!-- External -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-bom</artifactId>
-				<version>${spring.security.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+            <!-- BOM -->
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>medicare-common-bom</artifactId>
+                <version>${medicare.common.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-		</dependencies>
-	</dependencyManagement>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven.surefire.plugin.version}</version>
-				</plugin>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring.security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<version>${spring.boot.version}</version>
-				</plugin>
+        </dependencies>
+    </dependencyManagement>
 
-				<plugin>
-					<groupId>io.fabric8</groupId>
-					<artifactId>docker-maven-plugin</artifactId>
-					<version>${docker.maven.plugin.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>spring-boot-maven-repackage</id>
-						<phase>${application.package}</phase>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-	
-	<profiles>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.maven.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>spring-boot-maven-repackage</id>
+                        <phase>${application.package}</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
         <profile>
             <id>docker</id>
             <activation>
@@ -171,7 +180,8 @@
                                             </inline>
                                         </assembly>
                                         <entryPoint>
-                                            <shell>java $JVM_ARGS -jar /${project.build.finalName}.jar</shell>
+                                            <shell>java $JVM_ARGS -jar
+                                                /${project.build.finalName}.jar</shell>
                                         </entryPoint>
                                         <tags>
                                             <tag>${project.version}</tag>
@@ -198,7 +208,7 @@
                                     <images>
                                         <image>
                                             <name>
-                                               hu.microservice.medicare/${project.artifactId}:${project.version}
+                                                hu.microservice.medicare/${project.artifactId}:${project.version}
                                             </name>
                                         </image>
                                     </images>

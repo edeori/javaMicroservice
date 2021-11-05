@@ -9,7 +9,6 @@ public enum IllnessCategory {
 	BLOOD,
 	CANCER_AND_NEOPLASMS,
 	CARDIOVASCULAR,
-	CONGENITAL_DISORDERS,
 	EAR,
 	EYE,
 	INFECTION,
@@ -25,8 +24,7 @@ public enum IllnessCategory {
 	RESPIRATORY,
 	SKIN,
 	STROKE,
-	GENERIC_HEALTH_RELEVANCE,
-	DISPUTED_AETIOLOGY_AND_OTHER;
+	UNKNOWN;
 
 	@JsonValue
 	@Override

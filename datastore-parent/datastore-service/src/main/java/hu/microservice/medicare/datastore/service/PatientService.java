@@ -68,7 +68,7 @@ public class PatientService {
 		entity.setDoHavePet(dto.isDoHavePet());
 		entity.setDoUseDrugs(dto.isDoUseDrugs());
 		entity.setEating(dto.getEating());
-		entity.setGenre(dto.getGenre());
+		entity.setGender(dto.getGender());
 		entity.setHeight(dto.getHeight());
 		entity.setJobActivity(dto.getJobActivity());
 		entity.setJobType(dto.getJobType());

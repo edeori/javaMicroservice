@@ -6,7 +6,7 @@ import java.util.Set;
 public class PatientData {
 
 	private String id;
-	private Genre genre;
+	private Gender gender;
 	private String dateOfBirth;
 	private Double weight;
 	private Double height;
@@ -49,12 +49,12 @@ public class PatientData {
 		this.id = id;
 	}
 
-	public Genre getGenre() {
-		return genre;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGender(Gender genre) {
+		this.gender = genre;
 	}
 
 	public String getDateOfBirth() {
@@ -290,7 +290,7 @@ public class PatientData {
 		result = prime * result + (doHavePet ? 1231 : 1237);
 		result = prime * result + (doUseDrugs ? 1231 : 1237);
 		result = prime * result + ((eating == null) ? 0 : eating.hashCode());
-		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isSmoking ? 1231 : 1237);
@@ -362,7 +362,7 @@ public class PatientData {
 			return false;
 		if (eating != other.eating)
 			return false;
-		if (genre != other.genre)
+		if (gender != other.gender)
 			return false;
 		if (height == null) {
 			if (other.height != null)

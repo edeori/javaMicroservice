@@ -22,5 +22,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>hu.microservice.medicare</groupId>
+            <artifactId>feign-proxy</artifactId>
+        </dependency>
 	</dependencies>
 </project>

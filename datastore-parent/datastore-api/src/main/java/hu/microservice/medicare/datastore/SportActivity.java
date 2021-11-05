@@ -15,7 +15,8 @@ public enum SportActivity {
 	BUSHWALKING,
 	FOOTBALL_OR_SOCCER,
 	YOGA,
-	MARTIAL_ARTS;
+	MARTIAL_ARTS,
+	OTHER;
 
 	@JsonValue
 	@Override

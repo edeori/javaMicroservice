@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Genre {
+public enum Gender {
 	MALE, FEMALE, OTHER;
 
 	@JsonValue
@@ -15,7 +15,7 @@ public enum Genre {
 	}
 
 	@JsonCreator
-	public static Genre of(String value) {
+	public static Gender of(String value) {
 		return valueOf(value.toUpperCase());
 	}
 }

@@ -9,7 +9,9 @@ public enum Race {
 	CAUCASIAN,
 	ASIAN,
 	BLACK,
-	AUSTRALOID;
+	AUSTRALOID,
+	GYPSY,
+	MIXED;
 
 	@JsonValue
 	@Override

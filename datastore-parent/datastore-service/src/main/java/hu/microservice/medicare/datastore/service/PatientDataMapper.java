@@ -30,7 +30,7 @@ public class PatientDataMapper {
 		dto.setDoHavePet(entity.isDoHavePet());
 		dto.setDoUseDrugs(entity.isDoUseDrugs());
 		dto.setEating(entity.getEating());
-		dto.setGenre(entity.getGenre());
+		dto.setGender(entity.getGender());
 		dto.setHeight(entity.getHeight());
 		dto.setJobActivity(entity.getJobActivity());
 		dto.setJobType(entity.getJobType());
@@ -65,7 +65,7 @@ public class PatientDataMapper {
 		entity.setDoHavePet(dto.isDoHavePet());
 		entity.setDoUseDrugs(dto.isDoUseDrugs());
 		entity.setEating(dto.getEating());
-		entity.setGenre(dto.getGenre());
+		entity.setGender(dto.getGender());
 		entity.setHeight(dto.getHeight());
 		entity.setJobActivity(dto.getJobActivity());
 		entity.setJobType(dto.getJobType());
