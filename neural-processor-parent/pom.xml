@@ -1,0 +1,215 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.microservice.medicare</groupId>
+    <artifactId>neural-processor-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Neural Service</name>
+    <description>Parent artifact for Neural Service</description>
+
+    <modules>
+        <module>neural-processor-api</module>
+        <module>neural-processor-application</module>
+        <module>neural-processor-service</module>
+        <module>neural-processor-web</module>
+    </modules>
+
+    <properties>
+        <java.version>15</java.version>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <spring.boot.version>2.4.4</spring.boot.version>
+        <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
+        <spring.security.version>5.4.6</spring.security.version>
+        <springdoc.version>1.5.9</springdoc.version>
+
+        <datasource.api.version>0.0.1-SNAPSHOT</datasource.api.version>
+        <calculator.api.version>0.0.1-SNAPSHOT</calculator.api.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Application modules -->
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>neural-processor-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>neural-processor-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>neural-processor-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>neural-processor-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- External -->
+
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>datastore-api</artifactId>
+                <version>${datasource.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring.security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.maven.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>spring-boot-maven-repackage</id>
+                        <phase>${application.package}</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>hu.microservice.medicare/${project.artifactId}:${project.version}</name>
+                                    <build>
+                                        <from>adoptopenjdk:15.0.2_7-jre-hotspot</from>
+                                        <assembly>
+                                            <targetDir>/</targetDir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>
+                                                            ${project.build.directory}/${project.build.finalName}.jar
+                                                        </source>
+                                                        <destName>${project.build.finalName}.jar</destName>
+                                                    </file>
+                                                </files>
+                                            </inline>
+                                        </assembly>
+                                        <entryPoint>
+                                            <shell>java $JVM_ARGS -jar
+                                                /${project.build.finalName}.jar</shell>
+                                        </entryPoint>
+                                        <tags>
+                                            <tag>${project.version}</tag>
+                                        </tags>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-docker-image</id>
+                                <phase>${docker.build}</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-docker-image</id>
+                                <phase>${docker.push}</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <images>
+                                        <image>
+                                            <name>hu.microservice.medicare/${project.artifactId}:${project.version}</name>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

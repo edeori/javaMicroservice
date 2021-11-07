@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@RequestMapping(value = "/api/DataStore", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/DataStore")
 @Tag(name = "Patients", description = "The Patient API")
 public interface PatientApi {
 

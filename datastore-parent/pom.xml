@@ -67,6 +67,7 @@
             </dependency>
 
             <!-- External -->
+            
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
@@ -74,13 +75,6 @@
             </dependency>
 
             <!-- BOM -->
-            <dependency>
-                <groupId>hu.microservice.medicare</groupId>
-                <artifactId>medicare-common-bom</artifactId>
-                <version>${medicare.common.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

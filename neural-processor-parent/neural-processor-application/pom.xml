@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hu.microservice.medicare</groupId>
+        <artifactId>neural-processor-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>neural-processor-application</artifactId>
+
+    <properties>
+        <application.package>package</application.package>
+        <docker.build>package</docker.build>
+        <docker.push>deploy</docker.push>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>neural-processor-web</artifactId>
+        </dependency>
+    </dependencies>
+</project>

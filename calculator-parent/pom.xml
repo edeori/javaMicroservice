@@ -12,7 +12,6 @@
     <modules>
         <module>calculator-api</module>
         <module>calculator-application</module>
-        <module>calculator-persistence</module>
         <module>calculator-service</module>
         <module>calculator-web</module>
     </modules>
@@ -30,6 +29,9 @@
         <springdoc.version>1.5.9</springdoc.version>
         <spring.security.version>5.4.6</spring.security.version>
         <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>
+        <datasource.api.version>0.0.1-SNAPSHOT</datasource.api.version>
+        <datastore.api.version>0.0.1-SNAPSHOT</datastore.api.version>
+        <neural.api.version>0.0.1-SNAPSHOT</neural.api.version>
     </properties>
 
     <dependencyManagement>
@@ -50,12 +52,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>calculator-persistence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>calculator-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -67,6 +63,25 @@
             </dependency>
 
             <!-- External -->
+
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>datastore-api</artifactId>
+                <version>${datasource.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>neural-processor-api</artifactId>
+                <version>${neural.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>feign-proxy</artifactId>
+                <version>${medicare.common.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
@@ -74,13 +89,6 @@
             </dependency>
 
             <!-- BOM -->
-            <dependency>
-                <groupId>hu.microservice.medicare</groupId>
-                <artifactId>medicare-common-bom</artifactId>
-                <version>${medicare.common.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(value = "/api/DataStore", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/DataStore")
 public interface IllnessApi {
 
     @PreAuthorize("hasRole('ILLNESS_READER')")

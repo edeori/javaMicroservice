@@ -12,11 +12,11 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>calculator-api</artifactId>
+            <artifactId>datastore-api</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>calculator-persistence</artifactId>
+            <artifactId>calculator-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -25,6 +25,16 @@
         <dependency>
             <groupId>hu.microservice.medicare</groupId>
             <artifactId>feign-proxy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.microservice.medicare</groupId>
+            <artifactId>neural-processor-api</artifactId>
         </dependency>
     </dependencies>
 

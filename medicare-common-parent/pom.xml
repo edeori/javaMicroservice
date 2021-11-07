@@ -6,8 +6,8 @@
     <artifactId>medicare-common-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Medicare Common</name>
-    <description>Parent artifact for Medicare Common</description>
+    <name>Medicare Common Parent</name>
+    <description>Parent artifact for Medicare Common libraries</description>
 
     <modules>
         <module>feign-proxy</module>
@@ -15,19 +15,17 @@
     </modules>
 
     <properties>
-        <application.package>none</application.package>
+        <java.version>15</java.version>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-        <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot.version>2.4.4</spring.boot.version>
-        <springdoc.version>1.5.9</springdoc.version>
-        <spring.security.version>5.4.6</spring.security.version>
-        <java.version>15</java.version>
         <feign.version>11.6</feign.version>
+        <resilience4j.version>1.7.0</resilience4j.version>
+        <spring.boot.version>2.4.4</spring.boot.version>
+        <spring.security.version>5.4.6</spring.security.version>
         <feign.form.version>3.8.0</feign.form.version>
         <jackson.version>2.12.4</jackson.version>
         <woodstox.version>6.2.5</woodstox.version>
@@ -37,7 +35,7 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>feign-proxy</artifactId>
+                <artifactId>feign-proxy-factory</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -64,17 +62,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>feign-proxy-factory</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>security-common</artifactId>
-                <version>${project.version}</version>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-bom</artifactId>
+                <version>${resilience4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
