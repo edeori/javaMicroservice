@@ -55,14 +55,19 @@ services:
       REST_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
     ports:
       - "8085:8080"
-#      
-#  dbservice2:
-#    image:
-#    environment:
-#      SPRING_DATASOURCE_URL: "jdbc:postgresql://database/${DB_NAME}"
-#      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-#      SPRING_DATASOURCE_USERNAME: ${DB_USER}
-#      DB_SERVICE_URL: "http://datastore-application:8080"
+
+  neural-processor-application:
+    image: hu.microservice.medicare/neural-processor-application:0.0.1-SNAPSHOT
+    ports:
+      - "8091:8080"
+      
+  calculator-application:
+    image: hu.microservice.medicare/calculator-application:0.0.1-SNAPSHOT
+    environment:
+      MEDICARE_PROJECT_DATASTORE_URL: "http://datastore-application:8080"
+      MEDICARE_PROJECT_NEURAL_URL: "http://neural-processor-application:8080"
+    ports:
+      - "8095:8080"
     
 volumes:
   keycloak_data:

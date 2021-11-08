@@ -1,5 +1,7 @@
 package hu.microservice.medicare.datastore.service;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import hu.microservice.medicare.datastore.HealthStatus;
@@ -11,10 +13,13 @@ public class HealthStatusService {
 
     private final HealthStatusRepository repository;
     private final HealthStatusMapper mapper;
+    private final IllnessMapper illnessMapper;
 
-    public HealthStatusService(HealthStatusRepository repository, HealthStatusMapper mapper) {
+    public HealthStatusService(HealthStatusRepository repository, HealthStatusMapper mapper,
+            IllnessMapper illnessMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.illnessMapper = illnessMapper;
     }
 
     public HealthStatus getByUserId(String patientId) throws PatientDataNotFound {
@@ -43,7 +48,8 @@ public class HealthStatusService {
 
     private void update(HealthStatusEntity entity, HealthStatus toBeUpdated) {
         entity.setPatientData(toBeUpdated.getPatientId());
-        entity.setPotentialIllnesses(toBeUpdated.getPotentialIllnesses());
+        entity.setPotentialIllnesses(
+                toBeUpdated.getPotentialIllnesses().stream().map(illnessMapper::map).collect(Collectors.toSet()));
     }
 
 }

@@ -1,8 +1,11 @@
 package hu.microservice.medicare.datastore.service;
 
+import org.springframework.stereotype.Component;
+
 import hu.microservice.medicare.datastore.WeightMatrix;
 import hu.microservice.medicare.datastore.WeightMatrixEntity;
 
+@Component
 public class WeightMatrixMapper {
     
     public WeightMatrix map(WeightMatrixEntity entity) {

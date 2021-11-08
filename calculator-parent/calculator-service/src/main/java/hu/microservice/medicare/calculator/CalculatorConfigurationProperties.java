@@ -7,19 +7,19 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @ConstructorBinding
 public class CalculatorConfigurationProperties {
 
-    private final String datastoreapiUrl;
-    private final String neuralapiUrl;
+    private final String datastoreUrl;
+    private final String neuralUrl;
 
-    public CalculatorConfigurationProperties(String weightapiUrl, String neuralapiUrl) {
-        this.datastoreapiUrl = weightapiUrl;
-        this.neuralapiUrl = neuralapiUrl;
+    public CalculatorConfigurationProperties(String datastoreUrl, String neuralUrl) {
+        this.datastoreUrl = datastoreUrl;
+        this.neuralUrl = neuralUrl;
     }
 
     public String getDatastoreApiUrl() {
-        return datastoreapiUrl;
+        return datastoreUrl;
     }
 
     public String getNeuralApiUrl() {
-        return neuralapiUrl;
+        return neuralUrl;
     }
 }

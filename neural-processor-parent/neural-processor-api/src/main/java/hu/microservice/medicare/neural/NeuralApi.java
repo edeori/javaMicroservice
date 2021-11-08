@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hu.microservice.medicare.datastore.HealthStatus;
-import hu.microservice.medicare.datastore.PatientData;
+import hu.microservice.medicare.datastore.NeuralTransferObject;
 import hu.microservice.medicare.datastore.WeightMatrix;
 
 @RequestMapping(value = "/api/Neural")
@@ -15,10 +15,10 @@ public interface NeuralApi {
 
     @PostMapping(value = "/teach", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    WeightMatrix teach(@RequestBody WeightMatrix weightMatrix, @RequestBody PatientData patientData);
+    WeightMatrix teach(@RequestBody NeuralTransferObject neuralTransferObject);
 
     @GetMapping(value = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    HealthStatus calculate(@RequestBody WeightMatrix weightMatrix, @RequestBody PatientData patientData);
+    HealthStatus calculate(@RequestBody NeuralTransferObject neuralTransferObject);
 
 }

@@ -188,8 +188,13 @@
                                             </inline>
                                         </assembly>
                                         <entryPoint>
-                                            <shell>java $JVM_ARGS -jar
-                                                /${project.build.finalName}.jar</shell>
+                                            <exec>
+                                                <arg>java</arg>
+                                                <arg>-Xms512m</arg>
+                                                <arg>-Xmx512m</arg>
+                                                <arg>-jar</arg>
+                                                <arg>/${project.build.finalName}.jar</arg>
+                                            </exec>
                                         </entryPoint>
                                         <tags>
                                             <tag>${project.version}</tag>

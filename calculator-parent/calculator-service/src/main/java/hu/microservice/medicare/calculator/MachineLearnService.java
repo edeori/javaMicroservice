@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import hu.microservice.medicare.datastore.HealthStatus;
 import hu.microservice.medicare.datastore.HealthStatusApi;
+import hu.microservice.medicare.datastore.NeuralTransferObject;
 import hu.microservice.medicare.datastore.PatientApi;
 import hu.microservice.medicare.datastore.PatientData;
 import hu.microservice.medicare.datastore.WeightApi;
@@ -33,16 +34,16 @@ public class MachineLearnService {
         if (weight == null) {
             throw new WeightNotFound();
         }
-        var response = neuralApi.teach(weight, data);
+        var response = neuralApi.teach(new NeuralTransferObject(weight, data));
         return response;
     }
 
     public HealthStatus processHealthStatus(String id) {
         var patientData = patientApi.getById(id);
         var weightMatrix = weightApi.getById(WEIGHT_ID);
-        
-        var healthStatus = neuralApi.calculate(weightMatrix, patientData);
-        
+
+        var healthStatus = neuralApi.calculate(new NeuralTransferObject(weightMatrix, patientData));
+
         var saved = healthStatusApi.createOrUpdate(id, healthStatus);
 
         return saved;
