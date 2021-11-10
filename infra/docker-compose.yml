@@ -58,6 +58,8 @@ services:
 
   neural-processor-application:
     image: hu.microservice.medicare/neural-processor-application:0.0.1-SNAPSHOT
+    environment:
+      REST_SECURITY_ENABLED: "false"
     ports:
       - "8091:8080"
       

@@ -16,6 +16,7 @@ public class PatientDataMapper {
 
 	public PatientData map(PatientDataEntity entity) {
 		var dto = new PatientData();
+		dto.setId(entity.getId());
 		dto.setActiveSportActivities(entity.getActiveSportActivities().stream().map(this::map).collect(Collectors.toSet()));
 		dto.setAlcoholRegularity(entity.getAlcoholRegularity());
 		dto.setAncestorDeathCauses(entity.getAncestorDeathCauses().stream().map(this::map).collect(Collectors.toSet()));
@@ -51,6 +52,7 @@ public class PatientDataMapper {
 	
 	public PatientDataEntity map(PatientData dto) {
 		var entity = new PatientDataEntity();
+		entity.setId(dto.getId());
 		entity.setActiveSportActivities(dto.getActiveSportActivities().stream().map(this::map).collect(Collectors.toSet()));
 		entity.setAlcoholRegularity(dto.getAlcoholRegularity());
 		entity.setAncestorDeathCauses(dto.getAncestorDeathCauses().stream().map(this::map).collect(Collectors.toSet()));
