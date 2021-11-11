@@ -1,9 +1,9 @@
+hu\microservice\medicare\security\MedicareSecurityAutoConfiguration.class
 hu\microservice\medicare\security\SecurityConfigurationProperties.class
 hu\microservice\medicare\security\KeycloakTokenConverter.class
 hu\microservice\medicare\security\WebSecurityConfig.class
 hu\microservice\medicare\security\GlobalMethodSecurityConfig.class
 hu\microservice\medicare\security\AuthorizationSupplier.class
-hu\microservice\medicare\security\MidasSecurityAutoConfiguration.class
 META-INF\spring-configuration-metadata.json
 hu\microservice\medicare\security\AuthorizationHeaderInterceptor.class
 hu\microservice\medicare\security\CurrentUser.class

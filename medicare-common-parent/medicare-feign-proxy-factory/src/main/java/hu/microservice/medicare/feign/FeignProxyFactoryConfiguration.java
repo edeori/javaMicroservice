@@ -20,6 +20,7 @@ public class FeignProxyFactoryConfiguration {
 
     @Bean
     public FeignProxyFactory proxyFactory(Collection<RequestInterceptor> defaultInterceptors) {
+        
         var jsonEncoder = new ContentTypeAwareDelegatingEncoder(
                 Set.of(MediaType.APPLICATION_JSON_VALUE),
                 new JacksonEncoder());
@@ -47,6 +48,7 @@ public class FeignProxyFactoryConfiguration {
 
                 requestTemplate.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
             }
+
         };
     }
 

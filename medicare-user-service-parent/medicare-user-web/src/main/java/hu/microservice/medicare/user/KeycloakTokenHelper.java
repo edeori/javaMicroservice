@@ -14,5 +14,9 @@ public class KeycloakTokenHelper {
         String iss = (String) jwt.getClaims().get("iss");
         return iss.split("/(?!.*/)")[1];
     }
+    
+    public String getTokenValue(Jwt jwt) {
+        return jwt.getTokenValue();
+    }
 
 }

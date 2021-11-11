@@ -2,6 +2,8 @@ package hu.microservice.medicare.user;
 
 import org.springframework.stereotype.Component;
 
+import hu.microservice.medicare.keycloak.KeycloakUser;
+
 @Component
 public class UserMapper {
 

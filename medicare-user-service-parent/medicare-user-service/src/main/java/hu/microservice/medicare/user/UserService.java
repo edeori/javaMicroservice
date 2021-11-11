@@ -2,6 +2,8 @@ package hu.microservice.medicare.user;
 
 import org.springframework.stereotype.Service;
 
+import hu.microservice.medicare.keycloak.KeycloakApi;
+
 @Service
 public class UserService {
 
@@ -14,22 +16,17 @@ public class UserService {
     }
 
     public UserMeta getUser(String realm, String id) throws UserNotFound {
-        /*/
         var keycloakUser = api.getUserById(realm, id);
-        
-        if(keycloakUser != null) {
+
+        if (keycloakUser != null) {
             return mapper.map(keycloakUser);
         } else {
             throw new UserNotFound();
         }
-        /*/
-        if(!id.isBlank()) {
-            var user = new UserMeta();
-            user.setId(id);
-            return user;
-        } else {
-            throw new UserNotFound();
-        }
+        /*
+         * / if(!id.isBlank()) { var user = new UserMeta(); user.setId(id); return user; } else { throw new
+         * UserNotFound(); } /
+         */
     }
 
 }

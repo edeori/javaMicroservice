@@ -22,6 +22,7 @@ services:
       DB_USER: "keycloak"
       DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
       DB_DATABASE: "keycloak"
+      KEYCLOAK_FRONTEND_URL: "http://localhost:8088/auth"
     ports:
       - "8088:8080"
   keycloak-database:
@@ -80,6 +81,8 @@ services:
     environment:
       MEDICARE_WEB_SECURITY_ENABLED: "true"
       MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
+      SERVER_FORWARDHEADERSSTRATEGY: "FRAMEWORK"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: ${OAUTH2_JWT_ISSUER_URI}
       KEYCLOAK_URI: "http://keycloak:8080"
     ports:
       -  "8097:8080"

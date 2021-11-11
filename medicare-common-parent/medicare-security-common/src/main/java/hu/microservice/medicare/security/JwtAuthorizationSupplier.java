@@ -1,9 +1,15 @@
 package hu.microservice.medicare.security;
 
+import java.util.logging.Logger;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
+import hu.microservice.medicare.feign.FeignProxyFactoryConfiguration;
+
 public class JwtAuthorizationSupplier implements AuthorizationSupplier {
+    
+    Logger LOG = Logger.getLogger(FeignProxyFactoryConfiguration.class.toString());
 
     @Override
     public String get() {

@@ -1,2 +1,2 @@
-hu\microservice\medicare\user\KeycloakApi.class
-hu\microservice\medicare\user\KeycloakUser.class
+hu\microservice\medicare\keycloak\KeycloakUser.class
+hu\microservice\medicare\keycloak\KeycloakApi.class

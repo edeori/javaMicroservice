@@ -24,7 +24,8 @@ public class UserApiImpl implements UserApi {
         var jwtToken = (Jwt) authentication.getPrincipal();
 
         try {
-            return service.getUser(helper.getRealmFromJwt(jwtToken), helper.getIdFromJwt(jwtToken));
+            return service.getUser(helper.getRealmFromJwt(jwtToken),
+                    helper.getIdFromJwt(jwtToken));
         } catch (UserNotFound e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
