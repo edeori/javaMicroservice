@@ -1,0 +1,220 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.microservice.medicare</groupId>
+    <artifactId>medicare-user-service-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <application.package>none</application.package>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+        <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring.boot.version>2.4.4</spring.boot.version>
+        <spring.security.version>5.4.6</spring.security.version>
+        <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>
+    </properties>
+
+    <modules>
+        <module>medicare-keycloak-api</module>
+        <module>medicare-user-api</module>
+        <module>medicare-user-application</module>
+        <module>medicare-user-service</module>
+        <module>medicare-user-web</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- API modules -->
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-keycloak-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-user-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-user-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-user-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-user-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- BOM -->
+
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>medicare-common-bom</artifactId>
+                <version>${medicare.common.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring.security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.maven.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>spring-boot-maven-repackage</id>
+                        <phase>${application.package}</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>hu.microservice.medicare/${project.artifactId}:${project.version}</name>
+                                    <build>
+                                        <from>adoptopenjdk:15.0.2_7-jre-hotspot</from>
+                                        <assembly>
+                                            <targetDir>/</targetDir>
+                                            <inline>
+                                                <files>
+                                                    <file>
+                                                        <source>
+                                                            ${project.build.directory}/${project.build.finalName}.jar
+                                                        </source>
+                                                        <destName>${project.build.finalName}.jar</destName>
+                                                    </file>
+                                                </files>
+                                            </inline>
+                                        </assembly>
+                                        <entryPoint>
+                                            <exec>
+                                                <arg>java</arg>
+                                                <arg>-Xms512m</arg>
+                                                <arg>-Xmx512m</arg>
+                                                <arg>-jar</arg>
+                                                <arg>/${project.build.finalName}.jar</arg>
+                                            </exec>
+                                        </entryPoint>
+                                        <tags>
+                                            <tag>${project.version}</tag>
+                                        </tags>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-docker-image</id>
+                                <phase>${docker.build}</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-docker-image</id>
+                                <phase>${docker.push}</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <images>
+                                        <image>
+                                            <name>
+                                                hu.microservice.medicare/${project.artifactId}:${project.version}
+                                            </name>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

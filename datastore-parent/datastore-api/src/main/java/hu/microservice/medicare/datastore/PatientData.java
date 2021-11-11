@@ -16,6 +16,7 @@ public class PatientData {
 	private JobActivity jobActivity;
 	private Location livingLocation;
 	private Race race;
+	private String createdBy;
 
 	private Integer averageSleepTime;
 	private String wakeUpTime;
@@ -34,12 +35,12 @@ public class PatientData {
 	private boolean doHaveGlasses;
 	private boolean doHavePet;
 
-	private Set<Sport> activeSportActivities = new HashSet<>();
-	private Set<Sport> postSportActivities = new HashSet<>();
+	private Set<String> activeSportActivities = new HashSet<>();
+	private Set<String> postSportActivities = new HashSet<>();
 
-	private Set<Illness> knownIllnesses = new HashSet<>();
-	private Set<Illness> ancestorIllnesses = new HashSet<>();
-	private Set<Illness> ancestorDeathCauses = new HashSet<>();
+	private Set<String> knownIllnesses = new HashSet<>();
+	private Set<String> ancestorIllnesses = new HashSet<>();
+	private Set<String> ancestorDeathCauses = new HashSet<>();
 
 	public String getId() {
 		return id;
@@ -129,7 +130,15 @@ public class PatientData {
 		this.race = race;
 	}
 
-	public Integer getAverageSleepTime() {
+	public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Integer getAverageSleepTime() {
 		return averageSleepTime;
 	}
 
@@ -233,43 +242,43 @@ public class PatientData {
 		this.doHavePet = doHavePet;
 	}
 
-	public Set<Sport> getActiveSportActivities() {
+	public Set<String> getActiveSportActivities() {
 		return activeSportActivities;
 	}
 
-	public void setActiveSportActivities(Set<Sport> activeSportActivities) {
+	public void setActiveSportActivities(Set<String> activeSportActivities) {
 		this.activeSportActivities = activeSportActivities;
 	}
 
-	public Set<Sport> getPostSportActivities() {
+	public Set<String> getPostSportActivities() {
 		return postSportActivities;
 	}
 
-	public void setPostSportActivities(Set<Sport> postSportActivities) {
+	public void setPostSportActivities(Set<String> postSportActivities) {
 		this.postSportActivities = postSportActivities;
 	}
 
-	public Set<Illness> getKnownIllnesses() {
+	public Set<String> getKnownIllnesses() {
 		return knownIllnesses;
 	}
 
-	public void setKnownIllnesses(Set<Illness> knownIllnesses) {
+	public void setKnownIllnesses(Set<String> knownIllnesses) {
 		this.knownIllnesses = knownIllnesses;
 	}
 
-	public Set<Illness> getAncestorIllnesses() {
+	public Set<String> getAncestorIllnesses() {
 		return ancestorIllnesses;
 	}
 
-	public void setAncestorIllnesses(Set<Illness> ancestorIllnesses) {
+	public void setAncestorIllnesses(Set<String> ancestorIllnesses) {
 		this.ancestorIllnesses = ancestorIllnesses;
 	}
 
-	public Set<Illness> getAncestorDeathCauses() {
+	public Set<String> getAncestorDeathCauses() {
 		return ancestorDeathCauses;
 	}
 
-	public void setAncestorDeathCauses(Set<Illness> ancestorDeathCauses) {
+	public void setAncestorDeathCauses(Set<String> ancestorDeathCauses) {
 		this.ancestorDeathCauses = ancestorDeathCauses;
 	}
 

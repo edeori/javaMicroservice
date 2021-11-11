@@ -33,6 +33,7 @@
 
         <datasource.api.version>0.0.1-SNAPSHOT</datasource.api.version>
         <calculator.api.version>0.0.1-SNAPSHOT</calculator.api.version>
+        <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>
     </properties>
 
     <dependencyManagement>
@@ -71,13 +72,16 @@
                 <version>${datasource.api.version}</version>
             </dependency>
 
+            <!-- BOM -->
+
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>medicare-common-bom</artifactId>
+                <version>${medicare.common.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
-            <!-- BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

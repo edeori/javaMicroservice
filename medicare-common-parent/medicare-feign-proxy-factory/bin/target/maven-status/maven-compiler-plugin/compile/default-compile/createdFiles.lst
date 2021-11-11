@@ -1,0 +1,8 @@
+hu\microservice\medicare\feign\FeignProxyFactoryConfiguration.class
+hu\microservice\medicare\feign\FeignProxyFactory.class
+hu\microservice\medicare\feign\ContentTypeAwareDelegatingDecoder.class
+hu\microservice\medicare\feign\FeignProxyFactory$Key.class
+hu\microservice\medicare\feign\ContentTypeAware.class
+hu\microservice\medicare\feign\ChainCodec.class
+hu\microservice\medicare\feign\ContentTypeAwareDelegatingEncoder.class
+hu\microservice\medicare\feign\XmlCodec.class

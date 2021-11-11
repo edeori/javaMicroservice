@@ -30,6 +30,7 @@
         <springdoc.version>1.5.9</springdoc.version>
         <spring.security.version>5.4.6</spring.security.version>
         <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>
+        <user.api.version>0.0.1-SNAPSHOT</user.api.version>
     </properties>
 
     <dependencyManagement>
@@ -69,12 +70,26 @@
             <!-- External -->
             
             <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>medicare-user-api</artifactId>
+                <version>${user.api.version}</version>
+            </dependency>
+            
+            <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
 
             <!-- BOM -->
+            
+            <dependency>
+                <groupId>hu.microservice.medicare</groupId>
+                <artifactId>medicare-common-bom</artifactId>
+                <version>${medicare.common.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

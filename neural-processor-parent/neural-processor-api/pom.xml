@@ -14,7 +14,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>hu.microservice.medicare</groupId>
             <artifactId>datastore-api</artifactId>

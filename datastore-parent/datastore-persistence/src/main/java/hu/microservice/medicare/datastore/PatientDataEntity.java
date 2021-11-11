@@ -26,6 +26,7 @@ public class PatientDataEntity {
 	private JobActivity jobActivity;
 	private Location livingLocation;
 	private Race race;
+	private String createdBy;
 
 	private Integer averageSleepTime;
 	private String wakeUpTime;
@@ -152,7 +153,15 @@ public class PatientDataEntity {
 		this.race = race;
 	}
 
-	public Integer getAverageSleepTime() {
+	public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Integer getAverageSleepTime() {
 		return averageSleepTime;
 	}
 

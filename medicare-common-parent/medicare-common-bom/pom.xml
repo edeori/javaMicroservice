@@ -15,7 +15,12 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>feign-proxy</artifactId>
+                <artifactId>medicare-feign-proxy-factory</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+			<dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-security-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

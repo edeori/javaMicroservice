@@ -10,8 +10,9 @@
     <description>Parent artifact for Medicare Common libraries</description>
 
     <modules>
-        <module>feign-proxy</module>
+        <module>medicare-feign-proxy-factory</module>
         <module>medicare-common-bom</module>
+        <module>medicare-security-common</module>
     </modules>
 
     <properties>
@@ -27,7 +28,7 @@
         <spring.boot.version>2.4.4</spring.boot.version>
         <spring.security.version>5.4.6</spring.security.version>
         <feign.form.version>3.8.0</feign.form.version>
-        <jackson.version>2.12.4</jackson.version>
+        <jackson.version>2.11.4</jackson.version>
         <woodstox.version>6.2.5</woodstox.version>
     </properties>
 
@@ -35,7 +36,13 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>feign-proxy-factory</artifactId>
+                <artifactId>medicare-feign-proxy-factory</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>medicare-security-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -62,7 +69,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-bom</artifactId>

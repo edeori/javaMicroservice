@@ -10,7 +10,7 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data/
     ports:
-      - "5432:5432"
+      - "54321:5432"
       
   keycloak:
     image: "jboss/keycloak:15.0.2"
@@ -51,15 +51,17 @@ services:
       SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
       SPRING_JPA_DATABASEPLATFORM: "org.hibernate.dialect.PostgreSQL95Dialect"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: ${OAUTH2_JWT_ISSUER_URI}
-      REST_SECURITY_ENABLED: "false"
-      REST_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
+      MEDICARE_WEB_SECURITY_ENABLED: "true"
+      MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
+      MEDICARE_PROJECT_USER_URL: "http://user-service:8080"
     ports:
       - "8085:8080"
 
   neural-processor-application:
     image: hu.microservice.medicare/neural-processor-application:0.0.1-SNAPSHOT
     environment:
-      REST_SECURITY_ENABLED: "false"
+      MEDICARE_WEB_SECURITY_ENABLED: "true"
+      MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
     ports:
       - "8091:8080"
       
@@ -68,8 +70,19 @@ services:
     environment:
       MEDICARE_PROJECT_DATASTORE_URL: "http://datastore-application:8080"
       MEDICARE_PROJECT_NEURAL_URL: "http://neural-processor-application:8080"
+      MEDICARE_WEB_SECURITY_ENABLED: "true"
+      MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
     ports:
       - "8095:8080"
+      
+  user-service:
+    image: hu.microservice.medicare/medicare-user-application:0.0.1-SNAPSHOT
+    environment:
+      MEDICARE_WEB_SECURITY_ENABLED: "true"
+      MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
+      KEYCLOAK_URI: "http://keycloak:8080"
+    ports:
+      -  "8097:8080"
     
 volumes:
   keycloak_data:

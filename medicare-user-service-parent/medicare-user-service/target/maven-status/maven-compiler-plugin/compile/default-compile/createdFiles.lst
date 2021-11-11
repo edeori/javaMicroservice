@@ -1,0 +1,4 @@
+hu\microservice\medicare\user\UserMapper.class
+hu\microservice\medicare\user\KeycloakConfiguration.class
+hu\microservice\medicare\user\UserNotFound.class
+hu\microservice\medicare\user\UserService.class
