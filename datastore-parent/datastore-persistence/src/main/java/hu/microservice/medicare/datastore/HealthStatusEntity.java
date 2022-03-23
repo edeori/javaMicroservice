@@ -1,12 +1,13 @@
 package hu.microservice.medicare.datastore;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +17,9 @@ public class HealthStatusEntity {
     @Id
     private String id;
     private String patientId;
-
-    @ManyToMany
-    @JoinTable(name = "potential_illness",
-            joinColumns = @JoinColumn(name = "health_status_id"),
-            inverseJoinColumns = @JoinColumn(name = "illness_id"))
-    private Set<IllnessEntity> potentialIllnesses;
+    
+    @OneToMany(mappedBy = "healthStatus", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<PotentialIllnessEntity> potentialIllnesses = new HashSet<>();
 
     public String getId() {
         return id;
@@ -31,19 +29,19 @@ public class HealthStatusEntity {
         this.id = id;
     }
 
-    public String getPatientData() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientData(String patientData) {
-        this.patientId = patientData;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
-    public Set<IllnessEntity> getPotentialIllnesses() {
+    public Set<PotentialIllnessEntity> getPotentialIllnesses() {
         return potentialIllnesses;
     }
 
-    public void setPotentialIllnesses(Set<IllnessEntity> potentialIllnesses) {
+    public void setPotentialIllnesses(Set<PotentialIllnessEntity> potentialIllnesses) {
         this.potentialIllnesses = potentialIllnesses;
     }
 

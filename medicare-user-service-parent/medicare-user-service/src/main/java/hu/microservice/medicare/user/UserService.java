@@ -23,10 +23,6 @@ public class UserService {
         } else {
             throw new UserNotFound();
         }
-        /*
-         * / if(!id.isBlank()) { var user = new UserMeta(); user.setId(id); return user; } else { throw new
-         * UserNotFound(); } /
-         */
     }
 
 }

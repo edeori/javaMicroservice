@@ -26,7 +26,7 @@
         <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot.version>2.4.4</spring.boot.version>
+        <spring.boot.version>2.5.5</spring.boot.version>
         <springdoc.version>1.5.9</springdoc.version>
         <spring.security.version>5.4.6</spring.security.version>
         <medicare.common.version>0.0.1-SNAPSHOT</medicare.common.version>

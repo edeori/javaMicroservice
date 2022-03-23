@@ -9,7 +9,6 @@ public enum Race {
 	CAUCASIAN,
 	ASIAN,
 	BLACK,
-	AUSTRALOID,
 	GYPSY,
 	MIXED;
 

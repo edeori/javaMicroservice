@@ -3,157 +3,163 @@ package hu.microservice.medicare.datastore;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "patientdata")
 public class PatientDataEntity {
 
-	@Id
-	private String id;
-	private Gender gender;
-	private String dateOfBirth;
-	private Double weight;
-	private Double height;
-	private RelationshipStatus relationshipStatus;
-	private boolean doHaveKids;
-	private JobType jobType;
-	private JobActivity jobActivity;
-	private Location livingLocation;
-	private Race race;
-	private String createdBy;
+    @Id
+    private String id;
+    private Gender gender;
+    private String dateOfBirth;
+    private Double weight;
+    private Double height;
+    private RelationshipStatus relationshipStatus;
+    private boolean doHaveKids;
+    private JobType jobType;
+    private JobActivity jobActivity;
+    private Location livingLocation;
+    private Race race;
+    private String createdBy;
 
-	private Integer averageSleepTime;
-	private String wakeUpTime;
-	private Integer onScreenTime;
+    private Integer averageSleepTime;
+    private Integer onScreenTime;
 
-	private Integer averageStressLevel;
+    private Integer averageStressLevel;
 
-	private boolean regularEating;
-	private Integer mealsPerDay;
-	private Eating eating;
-	private Diet diet;
-	private AlcoholRegularity alcoholRegularity;
+    private boolean regularEating;
+    private Integer mealsPerDay;
+    private Eating eating;
+    private Diet diet;
+    private AlcoholRegularity alcoholRegularity;
 
-	private boolean isSmoking;
-	private boolean doUseDrugs;
-	private boolean doHaveGlasses;
-	private boolean doHavePet;
+    private boolean isSmoking;
+    private boolean doUseDrugs;
+    private boolean doHaveGlasses;
+    private boolean doHavePet;
 
-	@ManyToMany
-	@JoinTable(name = "active_sport_activities", joinColumns = @JoinColumn(name = "patient_data_id"), inverseJoinColumns = @JoinColumn(name = "sport_id"))
-	private Set<SportEntity> activeSportActivities = new HashSet<>();
-	
-	@ManyToMany
-	@JoinTable(name = "post_sport_activities", joinColumns = @JoinColumn(name = "patient_data_id"), inverseJoinColumns = @JoinColumn(name = "sport_id"))
-	private Set<SportEntity> postSportActivities = new HashSet<>();
+    @ElementCollection(targetClass = SportActivity.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    private Set<SportActivity> activeSportActivities = new HashSet<>();
 
-	@ManyToMany
-	@JoinTable(name = "known_illnesses", joinColumns = @JoinColumn(name = "patient_data_id"), inverseJoinColumns = @JoinColumn(name = "illness_id"))
-	private Set<IllnessEntity> knownIllnesses = new HashSet<>();
+    @ElementCollection(targetClass = SportActivity.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    private Set<SportActivity> postSportActivities = new HashSet<>();
 
-	@ManyToMany
-	@JoinTable(name = "ancestor_illnesses", joinColumns = @JoinColumn(name = "patient_data_id"), inverseJoinColumns = @JoinColumn(name = "illness_id"))
-	private Set<IllnessEntity> ancestorIllnesses = new HashSet<>();
+    @ElementCollection(targetClass = IllnessCategory.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    private Set<IllnessCategory> knownIllnesses = new HashSet<>();
 
-	@ManyToMany
-	@JoinTable(name = "ancestor_death_causes", joinColumns = @JoinColumn(name = "patient_data_id"), inverseJoinColumns = @JoinColumn(name = "illness_id"))
-	private Set<IllnessEntity> ancestorDeathCauses = new HashSet<>();
+    @ElementCollection(targetClass = IllnessCategory.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    private Set<IllnessCategory> ancestorIllnesses = new HashSet<>();
 
-	public String getId() {
-		return id;
-	}
+    @ElementCollection(targetClass = IllnessCategory.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    private Set<IllnessCategory> ancestorDeathCauses = new HashSet<>();
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public Gender getGender() {
-		return gender;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-	public Double getWeight() {
-		return weight;
-	}
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
+    public Double getWeight() {
+        return weight;
+    }
 
-	public Double getHeight() {
-		return height;
-	}
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
 
-	public void setHeight(Double height) {
-		this.height = height;
-	}
+    public Double getHeight() {
+        return height;
+    }
 
-	public RelationshipStatus getRelationshipStatus() {
-		return relationshipStatus;
-	}
+    public void setHeight(Double height) {
+        this.height = height;
+    }
 
-	public void setRelationshipStatus(RelationshipStatus relationshipStatus) {
-		this.relationshipStatus = relationshipStatus;
-	}
+    public RelationshipStatus getRelationshipStatus() {
+        return relationshipStatus;
+    }
 
-	public boolean isDoHaveKids() {
-		return doHaveKids;
-	}
+    public void setRelationshipStatus(RelationshipStatus relationshipStatus) {
+        this.relationshipStatus = relationshipStatus;
+    }
 
-	public void setDoHaveKids(boolean doHaveKids) {
-		this.doHaveKids = doHaveKids;
-	}
+    public boolean isDoHaveKids() {
+        return doHaveKids;
+    }
 
-	public JobType getJobType() {
-		return jobType;
-	}
+    public void setDoHaveKids(boolean doHaveKids) {
+        this.doHaveKids = doHaveKids;
+    }
 
-	public void setJobType(JobType jobType) {
-		this.jobType = jobType;
-	}
+    public JobType getJobType() {
+        return jobType;
+    }
 
-	public JobActivity getJobActivity() {
-		return jobActivity;
-	}
+    public void setJobType(JobType jobType) {
+        this.jobType = jobType;
+    }
 
-	public void setJobActivity(JobActivity jobActivity) {
-		this.jobActivity = jobActivity;
-	}
+    public JobActivity getJobActivity() {
+        return jobActivity;
+    }
 
-	public Location getLivingLocation() {
-		return livingLocation;
-	}
+    public void setJobActivity(JobActivity jobActivity) {
+        this.jobActivity = jobActivity;
+    }
 
-	public void setLivingLocation(Location livingLocation) {
-		this.livingLocation = livingLocation;
-	}
+    public Location getLivingLocation() {
+        return livingLocation;
+    }
 
-	public Race getRace() {
-		return race;
-	}
+    public void setLivingLocation(Location livingLocation) {
+        this.livingLocation = livingLocation;
+    }
 
-	public void setRace(Race race) {
-		this.race = race;
-	}
+    public Race getRace() {
+        return race;
+    }
 
-	public String getCreatedBy() {
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public String getCreatedBy() {
         return createdBy;
     }
 
@@ -162,147 +168,139 @@ public class PatientDataEntity {
     }
 
     public Integer getAverageSleepTime() {
-		return averageSleepTime;
-	}
+        return averageSleepTime;
+    }
 
-	public void setAverageSleepTime(Integer averageSleepTime) {
-		this.averageSleepTime = averageSleepTime;
-	}
+    public void setAverageSleepTime(Integer averageSleepTime) {
+        this.averageSleepTime = averageSleepTime;
+    }
 
-	public String getWakeUpTime() {
-		return wakeUpTime;
-	}
+    public Integer getOnScreenTime() {
+        return onScreenTime;
+    }
 
-	public void setWakeUpTime(String wakeUpTime) {
-		this.wakeUpTime = wakeUpTime;
-	}
+    public void setOnScreenTime(Integer onScreenTime) {
+        this.onScreenTime = onScreenTime;
+    }
 
-	public Integer getOnScreenTime() {
-		return onScreenTime;
-	}
+    public Integer getAverageStressLevel() {
+        return averageStressLevel;
+    }
 
-	public void setOnScreenTime(Integer onScreenTime) {
-		this.onScreenTime = onScreenTime;
-	}
+    public void setAverageStressLevel(Integer averageStressLevel) {
+        this.averageStressLevel = averageStressLevel;
+    }
 
-	public Integer getAverageStressLevel() {
-		return averageStressLevel;
-	}
+    public boolean isRegularEating() {
+        return regularEating;
+    }
 
-	public void setAverageStressLevel(Integer averageStressLevel) {
-		this.averageStressLevel = averageStressLevel;
-	}
+    public void setRegularEating(boolean regularEating) {
+        this.regularEating = regularEating;
+    }
 
-	public boolean isRegularEating() {
-		return regularEating;
-	}
+    public Integer getMealsPerDay() {
+        return mealsPerDay;
+    }
 
-	public void setRegularEating(boolean regularEating) {
-		this.regularEating = regularEating;
-	}
+    public void setMealsPerDay(Integer mealsPerDay) {
+        this.mealsPerDay = mealsPerDay;
+    }
 
-	public Integer getMealsPerDay() {
-		return mealsPerDay;
-	}
+    public Eating getEating() {
+        return eating;
+    }
 
-	public void setMealsPerDay(Integer mealsPerDay) {
-		this.mealsPerDay = mealsPerDay;
-	}
+    public void setEating(Eating eating) {
+        this.eating = eating;
+    }
 
-	public Eating getEating() {
-		return eating;
-	}
+    public Diet getDiet() {
+        return diet;
+    }
 
-	public void setEating(Eating eating) {
-		this.eating = eating;
-	}
+    public void setDiet(Diet diet) {
+        this.diet = diet;
+    }
 
-	public Diet getDiet() {
-		return diet;
-	}
+    public AlcoholRegularity getAlcoholRegularity() {
+        return alcoholRegularity;
+    }
 
-	public void setDiet(Diet diet) {
-		this.diet = diet;
-	}
+    public void setAlcoholRegularity(AlcoholRegularity alcoholRegularity) {
+        this.alcoholRegularity = alcoholRegularity;
+    }
 
-	public AlcoholRegularity getAlcoholRegularity() {
-		return alcoholRegularity;
-	}
+    public boolean isSmoking() {
+        return isSmoking;
+    }
 
-	public void setAlcoholRegularity(AlcoholRegularity alcoholRegularity) {
-		this.alcoholRegularity = alcoholRegularity;
-	}
+    public void setSmoking(boolean isSmoking) {
+        this.isSmoking = isSmoking;
+    }
 
-	public boolean isSmoking() {
-		return isSmoking;
-	}
+    public boolean isDoUseDrugs() {
+        return doUseDrugs;
+    }
 
-	public void setSmoking(boolean isSmoking) {
-		this.isSmoking = isSmoking;
-	}
+    public void setDoUseDrugs(boolean doUseDrugs) {
+        this.doUseDrugs = doUseDrugs;
+    }
 
-	public boolean isDoUseDrugs() {
-		return doUseDrugs;
-	}
+    public boolean isDoHaveGlasses() {
+        return doHaveGlasses;
+    }
 
-	public void setDoUseDrugs(boolean doUseDrugs) {
-		this.doUseDrugs = doUseDrugs;
-	}
+    public void setDoHaveGlasses(boolean doHaveGlasses) {
+        this.doHaveGlasses = doHaveGlasses;
+    }
 
-	public boolean isDoHaveGlasses() {
-		return doHaveGlasses;
-	}
+    public boolean isDoHavePet() {
+        return doHavePet;
+    }
 
-	public void setDoHaveGlasses(boolean doHaveGlasses) {
-		this.doHaveGlasses = doHaveGlasses;
-	}
+    public void setDoHavePet(boolean doHavePet) {
+        this.doHavePet = doHavePet;
+    }
 
-	public boolean isDoHavePet() {
-		return doHavePet;
-	}
+    public Set<SportActivity> getActiveSportActivities() {
+        return activeSportActivities;
+    }
 
-	public void setDoHavePet(boolean doHavePet) {
-		this.doHavePet = doHavePet;
-	}
+    public void setActiveSportActivities(Set<SportActivity> activeSportActivities) {
+        this.activeSportActivities = activeSportActivities;
+    }
 
-	public Set<SportEntity> getActiveSportActivities() {
-		return activeSportActivities;
-	}
+    public Set<SportActivity> getPostSportActivities() {
+        return postSportActivities;
+    }
 
-	public void setActiveSportActivities(Set<SportEntity> activeSportActivities) {
-		this.activeSportActivities = activeSportActivities;
-	}
+    public void setPostSportActivities(Set<SportActivity> postSportActivities) {
+        this.postSportActivities = postSportActivities;
+    }
 
-	public Set<SportEntity> getPostSportActivities() {
-		return postSportActivities;
-	}
+    public Set<IllnessCategory> getKnownIllnesses() {
+        return knownIllnesses;
+    }
 
-	public void setPostSportActivities(Set<SportEntity> postSportActivities) {
-		this.postSportActivities = postSportActivities;
-	}
+    public void setKnownIllnesses(Set<IllnessCategory> knownIllnesses) {
+        this.knownIllnesses = knownIllnesses;
+    }
 
-	public Set<IllnessEntity> getKnownIllnesses() {
-		return knownIllnesses;
-	}
+    public Set<IllnessCategory> getAncestorIllnesses() {
+        return ancestorIllnesses;
+    }
 
-	public void setKnownIllnesses(Set<IllnessEntity> knownIllnesses) {
-		this.knownIllnesses = knownIllnesses;
-	}
+    public void setAncestorIllnesses(Set<IllnessCategory> ancestorIllnesses) {
+        this.ancestorIllnesses = ancestorIllnesses;
+    }
 
-	public Set<IllnessEntity> getAncestorIllnesses() {
-		return ancestorIllnesses;
-	}
+    public Set<IllnessCategory> getAncestorDeathCauses() {
+        return ancestorDeathCauses;
+    }
 
-	public void setAncestorIllnesses(Set<IllnessEntity> ancestorIllnesses) {
-		this.ancestorIllnesses = ancestorIllnesses;
-	}
-
-	public Set<IllnessEntity> getAncestorDeathCauses() {
-		return ancestorDeathCauses;
-	}
-
-	public void setAncestorDeathCauses(Set<IllnessEntity> ancestorDeathCauses) {
-		this.ancestorDeathCauses = ancestorDeathCauses;
-	}
+    public void setAncestorDeathCauses(Set<IllnessCategory> ancestorDeathCauses) {
+        this.ancestorDeathCauses = ancestorDeathCauses;
+    }
 
 }

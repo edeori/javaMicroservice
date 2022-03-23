@@ -9,7 +9,7 @@ public class HealthStatus {
     private String id;
     @NotNull
     private String patientId;
-    private Set<String> potentialIllnesses;
+    private Set<PotentialIllness> potentialIllnesses;
 
     public String getId() {
         return id;
@@ -23,15 +23,16 @@ public class HealthStatus {
         return patientId;
     }
 
-    public void setPatientId(String patientData) {
-        this.patientId = patientData;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
-    public Set<String> getPotentialIllnesses() {
+    public Set<PotentialIllness> getPotentialIllnesses() {
         return potentialIllnesses;
     }
 
-    public void setPotentialIllnesses(Set<String> potentialIllnesses) {
+    public void setPotentialIllnesses(Set<PotentialIllness> potentialIllnesses) {
         this.potentialIllnesses = potentialIllnesses;
     }
+
 }

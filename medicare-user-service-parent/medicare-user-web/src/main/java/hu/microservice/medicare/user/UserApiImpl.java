@@ -21,6 +21,11 @@ public class UserApiImpl implements UserApi {
     @Override
     public UserMeta getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (!(authentication.getPrincipal() instanceof Jwt)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        
         var jwtToken = (Jwt) authentication.getPrincipal();
 
         try {

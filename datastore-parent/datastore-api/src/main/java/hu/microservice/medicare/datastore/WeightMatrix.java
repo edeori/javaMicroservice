@@ -1,7 +1,7 @@
 package hu.microservice.medicare.datastore;
 
 public class WeightMatrix {
-    
+
     private String id;
 
     public String getId() {

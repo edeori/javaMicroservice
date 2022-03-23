@@ -8,33 +8,38 @@ import hu.microservice.medicare.datastore.HealthStatus;
 import hu.microservice.medicare.datastore.HealthStatusApi;
 import hu.microservice.medicare.datastore.service.HealthStatusService;
 import hu.microservice.medicare.datastore.service.PatientDataNotFound;
+import hu.microservice.medicare.user.UserApi;
 
 @RestController
 public class HealthStatusApiImpl implements HealthStatusApi {
 
     private final HealthStatusService service;
+    private final UserApi userApi;
 
-    public HealthStatusApiImpl(HealthStatusService service) {
+    public HealthStatusApiImpl(HealthStatusService service, UserApi userApi) {
         this.service = service;
+        this.userApi = userApi;
     }
 
     @Override
-    public HealthStatus getByUserId(String id) {
+    public HealthStatus getByUserId() {
         try {
-            return service.getByUserId(id);
+            var patientId = userApi.getUser().getId();
+            return service.getByUserId(patientId);
         } catch (PatientDataNotFound e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
-    public void delete(String id) {
-        service.delete(id);
+    public HealthStatus createOrUpdate(HealthStatus newHealthStatus) {
+        var patientId = userApi.getUser().getId();
+        return service.createOrUpdate(patientId, newHealthStatus);
     }
 
     @Override
-    public HealthStatus createOrUpdate(String patientId, HealthStatus newHealthStatus) {
-        return service.createOrUpdate(patientId, newHealthStatus);
+    public void delete(String id) {
+        service.delete(id);
     }
 
 }

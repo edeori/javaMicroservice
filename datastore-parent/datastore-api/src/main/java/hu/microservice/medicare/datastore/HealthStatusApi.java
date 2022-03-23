@@ -8,15 +8,31 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(value = "/api/HealthStatus")
-public interface HealthStatusApi {
-    
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    HealthStatus getByUserId(@PathVariable(value = "id") String id);
-    
-    @PutMapping(value = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    HealthStatus createOrUpdate(@PathVariable(value = "patientId") String patientId, @RequestBody HealthStatus healthStatus);
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@RequestMapping(value = "/api/HealthStatus")
+@Tag(name = "HealthStatus", description = "The Health Status API")
+public interface HealthStatusApi {
+
+    @Operation(summary = "Find HealthStatus by id", description = "Returns HealthStatus by the given id", tags = {
+            "HealthStatus" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation."),
+            @ApiResponse(responseCode = "404", description = "HealthStatus not found.") })
+    @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    HealthStatus getByUserId();
+
+    @Operation(summary = "Create or update HealthStatus", description = "", tags = {
+            "HealthStatus" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation.") })
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    HealthStatus createOrUpdate(@RequestBody HealthStatus healthStatus);
+
+    @Operation(summary = "Delete HealthStatus", description = "", tags = {
+            "HealthStatus" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation.") })
     @DeleteMapping(value = "/{id}")
     void delete(@PathVariable(value = "id") String id);
 }

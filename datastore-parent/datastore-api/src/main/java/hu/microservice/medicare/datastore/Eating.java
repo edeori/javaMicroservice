@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Eating {
 	HOME_COOKED,
-	TAKE_AWAY,
 	ORDERING,
 	FASTFOOD;
 

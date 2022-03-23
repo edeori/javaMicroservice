@@ -44,7 +44,7 @@ public class MachineLearnService {
 
         var healthStatus = neuralApi.calculate(new NeuralTransferObject(weightMatrix, patientData));
 
-        var saved = healthStatusApi.createOrUpdate(id, healthStatus);
+        var saved = healthStatusApi.createOrUpdate(healthStatus);
 
         return saved;
     }

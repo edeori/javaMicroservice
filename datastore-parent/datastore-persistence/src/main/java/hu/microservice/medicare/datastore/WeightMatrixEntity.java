@@ -10,6 +10,12 @@ public class WeightMatrixEntity {
 
     @Id
     private String id;
+    
+    // From
+    private String i;
+    
+    // To
+    private String j;
 
     public String getId() {
         return id;

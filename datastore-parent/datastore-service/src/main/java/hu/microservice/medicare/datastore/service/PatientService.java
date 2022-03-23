@@ -1,37 +1,26 @@
 package hu.microservice.medicare.datastore.service;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import hu.microservice.medicare.datastore.IllnessEntity;
-import hu.microservice.medicare.datastore.IllnessRepository;
 import hu.microservice.medicare.datastore.PatientData;
 import hu.microservice.medicare.datastore.PatientDataEntity;
 import hu.microservice.medicare.datastore.PatientDataRepository;
-import hu.microservice.medicare.datastore.SportEntity;
-import hu.microservice.medicare.datastore.SportRepository;
 import hu.microservice.medicare.user.UserApi;
 
 @Service
 public class PatientService {
 
     private final PatientDataRepository repository;
-    private final IllnessRepository illnessRepository;
-    private final SportRepository sportRepository;
     private final PatientDataMapper mapper;
     private final UserApi userApi;
 
     public PatientService(PatientDataRepository repository,
-            IllnessRepository illnessRepository,
-            SportRepository sportRepository,
             PatientDataMapper mapper, UserApi userApi) {
         this.repository = repository;
-        this.illnessRepository = illnessRepository;
-        this.sportRepository = sportRepository;
         this.mapper = mapper;
         this.userApi = userApi;
     }
@@ -70,10 +59,10 @@ public class PatientService {
     private PatientDataEntity createEntity(PatientData dto) {
         var entity = new PatientDataEntity();
         entity.setId(UUID.randomUUID().toString());
-        entity.setActiveSportActivities(getSportActivities(dto.getActiveSportActivities()));
+        entity.setActiveSportActivities(dto.getActiveSportActivities());
         entity.setAlcoholRegularity(dto.getAlcoholRegularity());
-        entity.setAncestorDeathCauses(getIllnesses(dto.getAncestorDeathCauses()));
-        entity.setAncestorIllnesses(getIllnesses(dto.getAncestorIllnesses()));
+        entity.setAncestorDeathCauses(dto.getAncestorDeathCauses());
+        entity.setAncestorIllnesses(dto.getAncestorIllnesses());
         entity.setAverageSleepTime(dto.getAverageSleepTime());
         entity.setAverageStressLevel(dto.getAverageStressLevel());
         entity.setDateOfBirth(dto.getDateOfBirth());
@@ -87,51 +76,24 @@ public class PatientService {
         entity.setHeight(dto.getHeight());
         entity.setJobActivity(dto.getJobActivity());
         entity.setJobType(dto.getJobType());
-        entity.setKnownIllnesses(getIllnesses(dto.getKnownIllnesses()));
+        entity.setKnownIllnesses(dto.getKnownIllnesses());
         entity.setLivingLocation(dto.getLivingLocation());
         entity.setMealsPerDay(dto.getMealsPerDay());
         entity.setOnScreenTime(dto.getOnScreenTime());
-        entity.setPostSportActivities(getSportActivities(dto.getPostSportActivities()));
+        entity.setPostSportActivities(dto.getPostSportActivities());
         entity.setRace(dto.getRace());
         entity.setRegularEating(dto.isRegularEating());
         entity.setRelationshipStatus(dto.getRelationshipStatus());
         entity.setSmoking(dto.isSmoking());
-        entity.setWakeUpTime(dto.getWakeUpTime());
         entity.setWeight(dto.getWeight());
         return entity;
     }
 
-    private Set<IllnessEntity> getIllnesses(Set<String> illnesses) {
-        var returnSet = new HashSet<IllnessEntity>();
-        illnesses
-                .stream()
-                .forEach(illnessId -> {
-                    illnessRepository.findById(illnessId).ifPresent(illness -> returnSet.add(illness));
-                });
-
-        return returnSet;
-    }
-
-    private Set<SportEntity> getSportActivities(Set<String> sportActivities) {
-        var returnSet = new HashSet<SportEntity>();
-        sportActivities
-                .stream()
-                .forEach(sportId -> {
-                    sportRepository.findById(sportId).ifPresent(sport -> returnSet.add(sport));
-                });
-
-        return returnSet;
-    }
-
-    public void delete(String id) {
-        repository.deleteById(id);
-    }
-
     private void update(PatientDataEntity entity, PatientData dto) {
-        entity.setActiveSportActivities(getSportActivities(dto.getActiveSportActivities()));
+        entity.setActiveSportActivities(dto.getActiveSportActivities());
         entity.setAlcoholRegularity(dto.getAlcoholRegularity());
-        entity.setAncestorDeathCauses(getIllnesses(dto.getAncestorDeathCauses()));
-        entity.setAncestorIllnesses(getIllnesses(dto.getAncestorIllnesses()));
+        entity.setAncestorDeathCauses(dto.getAncestorDeathCauses());
+        entity.setAncestorIllnesses(dto.getAncestorIllnesses());
         entity.setAverageSleepTime(dto.getAverageSleepTime());
         entity.setAverageStressLevel(dto.getAverageStressLevel());
         entity.setDateOfBirth(dto.getDateOfBirth());
@@ -145,16 +107,19 @@ public class PatientService {
         entity.setHeight(dto.getHeight());
         entity.setJobActivity(dto.getJobActivity());
         entity.setJobType(dto.getJobType());
-        entity.setKnownIllnesses(getIllnesses(dto.getKnownIllnesses()));
+        entity.setKnownIllnesses(dto.getKnownIllnesses());
         entity.setLivingLocation(dto.getLivingLocation());
         entity.setMealsPerDay(dto.getMealsPerDay());
         entity.setOnScreenTime(dto.getOnScreenTime());
-        entity.setPostSportActivities(getSportActivities(dto.getPostSportActivities()));
+        entity.setPostSportActivities(dto.getPostSportActivities());
         entity.setRace(dto.getRace());
         entity.setRegularEating(dto.isRegularEating());
         entity.setRelationshipStatus(dto.getRelationshipStatus());
         entity.setSmoking(dto.isSmoking());
-        entity.setWakeUpTime(dto.getWakeUpTime());
         entity.setWeight(dto.getWeight());
+    }
+
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 }

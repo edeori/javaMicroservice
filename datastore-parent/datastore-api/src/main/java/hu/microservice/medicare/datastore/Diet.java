@@ -14,7 +14,7 @@ public enum Diet {
 	KETOGENIC,
 	MEDITERRANEAN,
 	INTERMITTENT_FASTING,
-	OTHER_FITTNESS;
+	OTHER_FITNESS;
 
 	@JsonValue
 	@Override

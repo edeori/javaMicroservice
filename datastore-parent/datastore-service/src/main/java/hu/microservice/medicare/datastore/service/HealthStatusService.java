@@ -1,28 +1,23 @@
 package hu.microservice.medicare.datastore.service;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import hu.microservice.medicare.datastore.HealthStatus;
 import hu.microservice.medicare.datastore.HealthStatusEntity;
 import hu.microservice.medicare.datastore.HealthStatusRepository;
-import hu.microservice.medicare.datastore.IllnessEntity;
-import hu.microservice.medicare.datastore.IllnessRepository;
 
 @Service
 public class HealthStatusService {
 
     private final HealthStatusRepository repository;
-    private final IllnessRepository illnessRepository;
     private final HealthStatusMapper mapper;
 
-    public HealthStatusService(HealthStatusRepository repository, IllnessRepository illnessRepository,
+    public HealthStatusService(HealthStatusRepository repository,
             HealthStatusMapper mapper) {
         this.repository = repository;
-        this.illnessRepository = illnessRepository;
         this.mapper = mapper;
     }
 
@@ -54,25 +49,16 @@ public class HealthStatusService {
     private HealthStatusEntity createEntity(HealthStatus healthStatus) {
         var entity = new HealthStatusEntity();
         entity.setId(UUID.randomUUID().toString());
-        entity.setPatientData(healthStatus.getPatientId());
-        entity.setPotentialIllnesses(getIllnesses(healthStatus.getPotentialIllnesses()));
+        entity.setPatientId(healthStatus.getPatientId());
+        entity.setPotentialIllnesses(
+                healthStatus.getPotentialIllnesses().stream().map(mapper::map).collect(Collectors.toSet()));
         return entity;
     }
 
     private void update(HealthStatusEntity entity, HealthStatus toBeUpdated) {
-        entity.setPatientData(toBeUpdated.getPatientId());
-        entity.setPotentialIllnesses(getIllnesses(toBeUpdated.getPotentialIllnesses()));
-    }
-
-    private Set<IllnessEntity> getIllnesses(Set<String> illnesses) {
-        var returnSet = new HashSet<IllnessEntity>();
-        illnesses
-                .stream()
-                .forEach(illnessId -> {
-                    illnessRepository.findById(illnessId).ifPresent(illness -> returnSet.add(illness));
-                });
-
-        return returnSet;
+        entity.setPatientId(toBeUpdated.getPatientId());
+        entity.setPotentialIllnesses(
+                toBeUpdated.getPotentialIllnesses().stream().map(mapper::map).collect(Collectors.toSet()));
     }
 
 }
