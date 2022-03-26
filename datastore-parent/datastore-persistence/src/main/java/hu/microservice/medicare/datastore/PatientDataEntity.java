@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -41,32 +41,32 @@ public class PatientDataEntity {
     private Diet diet;
     private AlcoholRegularity alcoholRegularity;
 
-    private boolean isSmoking;
+    private boolean doSmoke;
     private boolean doUseDrugs;
     private boolean doHaveGlasses;
     private boolean doHavePet;
 
-    @ElementCollection(targetClass = SportActivity.class)
+    @ElementCollection(targetClass = SportActivity.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private Set<SportActivity> activeSportActivities = new HashSet<>();
 
-    @ElementCollection(targetClass = SportActivity.class)
+    @ElementCollection(targetClass = SportActivity.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private Set<SportActivity> postSportActivities = new HashSet<>();
 
-    @ElementCollection(targetClass = IllnessCategory.class)
+    @ElementCollection(targetClass = IllnessCategory.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private Set<IllnessCategory> knownIllnesses = new HashSet<>();
 
-    @ElementCollection(targetClass = IllnessCategory.class)
+    @ElementCollection(targetClass = IllnessCategory.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private Set<IllnessCategory> ancestorIllnesses = new HashSet<>();
 
-    @ElementCollection(targetClass = IllnessCategory.class)
+    @ElementCollection(targetClass = IllnessCategory.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private Set<IllnessCategory> ancestorDeathCauses = new HashSet<>();
@@ -231,12 +231,12 @@ public class PatientDataEntity {
         this.alcoholRegularity = alcoholRegularity;
     }
 
-    public boolean isSmoking() {
-        return isSmoking;
+    public boolean getDoSmoke() {
+        return doSmoke;
     }
 
-    public void setSmoking(boolean isSmoking) {
-        this.isSmoking = isSmoking;
+    public void setDoSmoke(boolean doSmoke) {
+        this.doSmoke = doSmoke;
     }
 
     public boolean isDoUseDrugs() {

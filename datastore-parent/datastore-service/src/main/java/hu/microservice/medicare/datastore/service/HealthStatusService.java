@@ -1,5 +1,6 @@
 package hu.microservice.medicare.datastore.service;
 
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import hu.microservice.medicare.datastore.HealthStatus;
 import hu.microservice.medicare.datastore.HealthStatusEntity;
 import hu.microservice.medicare.datastore.HealthStatusRepository;
+import hu.microservice.medicare.datastore.PotentialIllness;
+import hu.microservice.medicare.datastore.PotentialIllnessEntity;
 
 @Service
 public class HealthStatusService {
@@ -50,9 +53,20 @@ public class HealthStatusService {
         var entity = new HealthStatusEntity();
         entity.setId(UUID.randomUUID().toString());
         entity.setPatientId(healthStatus.getPatientId());
-        entity.setPotentialIllnesses(
-                healthStatus.getPotentialIllnesses().stream().map(mapper::map).collect(Collectors.toSet()));
+        setPotentialIllnesses(entity, healthStatus.getPotentialIllnesses());
         return entity;
+    }
+
+    private void setPotentialIllnesses(HealthStatusEntity entity, Set<PotentialIllness> potentialIllnesses) {
+        for (var illness: potentialIllnesses) {
+            var newIllness = new PotentialIllnessEntity();
+            newIllness.setId(UUID.randomUUID().toString());
+            newIllness.setIllness(illness.getIllness());
+            newIllness.setPrecent(illness.getPercent());
+            newIllness.setHealthStatus(entity);
+            
+            entity.getPotentialIllnesses().add(newIllness);
+        }
     }
 
     private void update(HealthStatusEntity entity, HealthStatus toBeUpdated) {

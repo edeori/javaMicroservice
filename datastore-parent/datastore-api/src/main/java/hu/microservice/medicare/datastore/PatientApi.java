@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,16 +31,18 @@ public interface PatientApi {
     @GetMapping(value = "/PatientData/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     PatientData getById(@PathVariable(value = "id") String id);
 
-    @Operation(summary = "Update Patient", description = "", tags = { "Patients" })
+    @Operation(summary = "Find PatientData by patientId", description = "Returns PatientData by the current user",
+            tags = { "Patients" })
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation."),
             @ApiResponse(responseCode = "404", description = "Patient not found.") })
-    @PostMapping(value = "/PatientData/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    PatientData updateById(@PathVariable(value = "id") String id, @RequestBody PatientData patientData);
+    @GetMapping(value = "/PatientData/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    PatientData getByUser();
 
-    @Operation(summary = "Create new Patient", description = "", tags = { "Patients" })
+    @Operation(summary = "Update Patient", description = "", tags = { "Patients" })
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation.") })
-    @PutMapping(value = "/PatientData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    PatientData create(@RequestBody PatientData patientData);
+    @PostMapping(value = "/PatientData", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    PatientData createOrUpdate(@RequestBody PatientData patientData);
 
     @Operation(summary = "Delete Patient", description = "", tags = { "Patients" })
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation.") })

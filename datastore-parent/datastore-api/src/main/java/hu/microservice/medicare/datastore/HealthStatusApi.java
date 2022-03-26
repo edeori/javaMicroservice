@@ -22,7 +22,7 @@ public interface HealthStatusApi {
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation."),
             @ApiResponse(responseCode = "404", description = "HealthStatus not found.") })
     @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    HealthStatus getByUserId();
+    HealthStatus getByUser();
 
     @Operation(summary = "Create or update HealthStatus", description = "", tags = {
             "HealthStatus" })

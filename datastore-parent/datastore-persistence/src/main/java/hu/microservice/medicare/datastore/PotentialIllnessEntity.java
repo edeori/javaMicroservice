@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "potential-illnesses")
+@Table(name = "potential_illnesses")
 public class PotentialIllnessEntity {
     @Id
     private String id;
@@ -40,5 +40,13 @@ public class PotentialIllnessEntity {
 
     public void setIllness(IllnessCategory illness) {
         this.illness = illness;
+    }
+
+    public HealthStatusEntity getHealthStatus() {
+        return healthStatus;
+    }
+
+    public void setHealthStatus(HealthStatusEntity healthStatus) {
+        this.healthStatus = healthStatus;
     }
 }

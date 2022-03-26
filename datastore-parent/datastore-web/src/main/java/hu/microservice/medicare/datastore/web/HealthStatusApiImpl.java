@@ -22,7 +22,7 @@ public class HealthStatusApiImpl implements HealthStatusApi {
     }
 
     @Override
-    public HealthStatus getByUserId() {
+    public HealthStatus getByUser() {
         try {
             var patientId = userApi.getUser().getId();
             return service.getByUserId(patientId);

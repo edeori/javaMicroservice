@@ -1,24 +1,14 @@
 package hu.microservice.medicare.datastore;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Location {
+    @JsonProperty("Capital City")
 	CAPITAL_CITY,
+	@JsonProperty("City")
 	CITY,
+	@JsonProperty("Country")
 	COUNTRY,
+	@JsonProperty("Village")
 	VILLAGE;
-
-	@JsonValue
-	@Override
-	public String toString() {
-		return StringUtils.capitalize(name().toLowerCase());
-	}
-
-	@JsonCreator
-	public static Location of(String value) {
-		return valueOf(value.toUpperCase());
-	}
 }

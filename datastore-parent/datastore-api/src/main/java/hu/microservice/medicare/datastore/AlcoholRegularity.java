@@ -1,25 +1,16 @@
 package hu.microservice.medicare.datastore;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum AlcoholRegularity {
+    @JsonProperty("Daily")
 	DAILY,
+	@JsonProperty("More than once a ween")
 	MORE_THAN_ONCE_A_WEEK,
+	@JsonProperty("Weekend")
 	WEEKEND,
+	@JsonProperty("Occasion")
 	OCCASION,
+	@JsonProperty("Never")
 	NEVER;
-
-	@JsonValue
-	@Override
-	public String toString() {
-		return StringUtils.capitalize(name().toLowerCase());
-	}
-	
-	@JsonCreator
-	public static AlcoholRegularity of(String value) {
-		return valueOf(value.toUpperCase());
-	}
 }

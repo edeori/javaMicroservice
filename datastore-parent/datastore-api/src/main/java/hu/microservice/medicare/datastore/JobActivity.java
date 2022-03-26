@@ -1,25 +1,16 @@
 package hu.microservice.medicare.datastore;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum JobActivity {
+    @JsonProperty("Physical")
 	PHYSICAL,
+	@JsonProperty("Mental")
 	MENTAL,
+	@JsonProperty("Trade")
 	TRADE,
+	@JsonProperty("Driving")
 	DRIVING,
+	@JsonProperty("Retired")
 	RETIRED;
-
-	@JsonValue
-	@Override
-	public String toString() {
-		return StringUtils.capitalize(name().toLowerCase());
-	}
-
-	@JsonCreator
-	public static JobActivity of(String value) {
-		return valueOf(value.toUpperCase());
-	}
 }

@@ -25,7 +25,7 @@ public class HealthStatusMapper {
         var dto = new PotentialIllness();
         dto.setId(entity.getId());
         dto.setIllness(entity.getIllness());
-        dto.setPrecent(entity.getPrecent());
+        dto.setPercent(entity.getPrecent());
         return dto;
     }
     

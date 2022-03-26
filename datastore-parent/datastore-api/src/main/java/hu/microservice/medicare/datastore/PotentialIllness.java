@@ -2,7 +2,7 @@ package hu.microservice.medicare.datastore;
 
 public class PotentialIllness {
     private String id;
-    private int precent;
+    private int percent;
     private IllnessCategory illness;
 
     public String getId() {
@@ -13,12 +13,12 @@ public class PotentialIllness {
         this.id = id;
     }
 
-    public int getPrecent() {
-        return precent;
+    public int getPercent() {
+        return percent;
     }
 
-    public void setPrecent(int precent) {
-        this.precent = precent;
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 
     public IllnessCategory getIllness() {

@@ -1,25 +1,16 @@
 package hu.microservice.medicare.datastore;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Race {
+    @JsonProperty("Caucasian")
 	CAUCASIAN,
+	@JsonProperty("Asian")
 	ASIAN,
+	@JsonProperty("Black")
 	BLACK,
+	@JsonProperty("Gypsy")
 	GYPSY,
+	@JsonProperty("Mixed")
 	MIXED;
-
-	@JsonValue
-	@Override
-	public String toString() {
-		return StringUtils.capitalize(name().toLowerCase());
-	}
-	
-	@JsonCreator
-	public static Race of(String value) {
-		return valueOf(value.toUpperCase());
-	}
 }

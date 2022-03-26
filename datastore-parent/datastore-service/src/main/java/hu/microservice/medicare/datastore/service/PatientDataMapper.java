@@ -36,7 +36,7 @@ public class PatientDataMapper {
         dto.setRace(entity.getRace());
         dto.setRegularEating(entity.isRegularEating());
         dto.setRelationshipStatus(entity.getRelationshipStatus());
-        dto.setSmoking(entity.isSmoking());
+        dto.setDoSmoke(entity.getDoSmoke());
         dto.setWeight(entity.getWeight());
         dto.setCreatedBy(entity.getCreatedBy());
         return dto;

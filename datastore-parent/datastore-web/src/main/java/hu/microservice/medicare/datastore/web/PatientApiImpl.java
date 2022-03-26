@@ -10,14 +10,17 @@ import hu.microservice.medicare.datastore.PatientApi;
 import hu.microservice.medicare.datastore.PatientData;
 import hu.microservice.medicare.datastore.service.PatientDataNotFound;
 import hu.microservice.medicare.datastore.service.PatientService;
+import hu.microservice.medicare.user.UserApi;
 
 @RestController
 public class PatientApiImpl implements PatientApi {
 
     private final PatientService service;
+    private final UserApi userApi;
 
-    public PatientApiImpl(PatientService service) {
+    public PatientApiImpl(PatientService service, UserApi userApi) {
         this.service = service;
+        this.userApi = userApi;
     }
 
     @Override
@@ -35,17 +38,19 @@ public class PatientApiImpl implements PatientApi {
     }
 
     @Override
-    public PatientData updateById(String id, PatientData patientData) {
+    public PatientData getByUser() {
+        var patientId = userApi.getUser().getId();
         try {
-            return service.updateById(id, patientData);
+            return service.getByUser(patientId);
         } catch (PatientDataNotFound e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
-    public PatientData create(PatientData patientData) {
-        return service.create(patientData);
+    public PatientData createOrUpdate(PatientData patientData) {
+        var patientId = userApi.getUser().getId();
+        return service.createOrUpdate(patientId, patientData);
     }
 
     @Override
