@@ -11,7 +11,11 @@ public class WeightMatrixMapper {
     public WeightMatrix map(WeightMatrixEntity entity) {
         var dto = new WeightMatrix();
         dto.setId(entity.getId());
-        // TODO and so on...
+        dto.setEta(entity.getEta());
+        dto.setBias(entity.getBias());
+        dto.setNetworkLayerSizes(entity.getNetworkLayerSizes());
+        dto.setWeights(entity.getWeights());
+        dto.setLastModification(entity.getLastModification());
         return dto;
     }
 

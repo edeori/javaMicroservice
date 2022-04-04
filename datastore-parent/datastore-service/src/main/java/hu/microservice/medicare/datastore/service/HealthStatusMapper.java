@@ -25,15 +25,15 @@ public class HealthStatusMapper {
         var dto = new PotentialIllness();
         dto.setId(entity.getId());
         dto.setIllness(entity.getIllness());
-        dto.setPercent(entity.getPrecent());
+        dto.setPercent(entity.getPercent());
         return dto;
     }
     
     public PotentialIllnessEntity map(PotentialIllness dto) {
         var entity = new PotentialIllnessEntity();
-        entity.setId(entity.getId());
-        entity.setIllness(entity.getIllness());
-        entity.setPrecent(entity.getPrecent());
+        entity.setId(dto.getId());
+        entity.setIllness(dto.getIllness());
+        entity.setPercent(dto.getPercent());
         return entity;
     }
 

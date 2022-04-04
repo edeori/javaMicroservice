@@ -73,6 +73,7 @@ services:
       MEDICARE_PROJECT_NEURAL_URL: "http://neural-processor-application:8080"
       MEDICARE_WEB_SECURITY_ENABLED: "true"
       MEDICARE_WEB_SECURITY_JWKS_URI: ${OAUTH2_JWKS_URI}
+      MEDICARE_PROJECT_MATRIX_ID: "eec8200a-4be8-41f8-9c40-91ee05b221af"
     ports:
       - "8095:8080"
       

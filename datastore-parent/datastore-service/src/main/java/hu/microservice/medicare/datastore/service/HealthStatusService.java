@@ -1,8 +1,8 @@
 package hu.microservice.medicare.datastore.service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,6 @@ import hu.microservice.medicare.datastore.PotentialIllnessEntity;
 
 @Service
 public class HealthStatusService {
-
     private final HealthStatusRepository repository;
     private final HealthStatusMapper mapper;
 
@@ -44,35 +43,39 @@ public class HealthStatusService {
     }
 
     private HealthStatus create(String patientId, HealthStatus healthStatus) {
-        var entity = createEntity(healthStatus);
+        var entity = createEntity(patientId, healthStatus);
         var saved = repository.save(entity);
         return mapper.map(saved);
     }
 
-    private HealthStatusEntity createEntity(HealthStatus healthStatus) {
+    private HealthStatusEntity createEntity(String patientId, HealthStatus healthStatus) {
         var entity = new HealthStatusEntity();
         entity.setId(UUID.randomUUID().toString());
-        entity.setPatientId(healthStatus.getPatientId());
+        entity.setPatientId(patientId);
         setPotentialIllnesses(entity, healthStatus.getPotentialIllnesses());
         return entity;
     }
 
     private void setPotentialIllnesses(HealthStatusEntity entity, Set<PotentialIllness> potentialIllnesses) {
-        for (var illness: potentialIllnesses) {
-            var newIllness = new PotentialIllnessEntity();
-            newIllness.setId(UUID.randomUUID().toString());
-            newIllness.setIllness(illness.getIllness());
-            newIllness.setPrecent(illness.getPercent());
-            newIllness.setHealthStatus(entity);
-            
+        for (var illness : potentialIllnesses) {
+            var newIllness = createPotentialIllnessEntity(illness, entity);
+
             entity.getPotentialIllnesses().add(newIllness);
         }
     }
+    
+    private void update(HealthStatusEntity entity, HealthStatus healthStatus) {
+        entity.setPotentialIllnesses(new HashSet<PotentialIllnessEntity>());
+        setPotentialIllnesses(entity, healthStatus.getPotentialIllnesses());
+    }
 
-    private void update(HealthStatusEntity entity, HealthStatus toBeUpdated) {
-        entity.setPatientId(toBeUpdated.getPatientId());
-        entity.setPotentialIllnesses(
-                toBeUpdated.getPotentialIllnesses().stream().map(mapper::map).collect(Collectors.toSet()));
+    private PotentialIllnessEntity createPotentialIllnessEntity(PotentialIllness dto, HealthStatusEntity healthStatus) {
+        var entity = new PotentialIllnessEntity();
+        entity.setId(UUID.randomUUID().toString());
+        entity.setIllness(dto.getIllness());
+        entity.setPercent(dto.getPercent());
+        entity.setHealthStatus(healthStatus);
+        return entity;
     }
 
 }

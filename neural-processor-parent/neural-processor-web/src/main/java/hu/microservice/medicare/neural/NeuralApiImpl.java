@@ -14,15 +14,34 @@ public class NeuralApiImpl implements NeuralApi {
     public NeuralApiImpl(NeuralProcessorService service) {
         this.service = service;
     }
+    
+    @Override
+    public double[] proba(WeightMatrix matrix) {
+        return service.proba(matrix);
+    }
 
     @Override
     public WeightMatrix teach(NeuralTransferObject neuralTransferObject) {
         return service.teach(neuralTransferObject);
+    }
+    
+    @Override
+    public WeightMatrix innerTeach(NeuralTransferObject neuralTransferObject) {
+        return service.innetTeach(neuralTransferObject);
     }
 
     @Override
     public HealthStatus calculate(NeuralTransferObject neuralTransferObject) {
         return service.calculate(neuralTransferObject);
     }
+
+    @Override
+    public NeuralTransferObject initWeightsAndBias() {
+        return service.init();
+    }
+
+
+
+    
 
 }

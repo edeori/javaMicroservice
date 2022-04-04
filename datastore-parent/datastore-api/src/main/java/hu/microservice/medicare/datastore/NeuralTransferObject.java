@@ -6,9 +6,14 @@ public class NeuralTransferObject {
 
     private PatientData patientData;
 
-    public NeuralTransferObject(WeightMatrix weightMatrix, PatientData patientData) {
+    private TargetData targetData;
+    
+    public NeuralTransferObject(){}
+
+    public NeuralTransferObject(WeightMatrix weightMatrix, PatientData patientData, TargetData targetData) {
         this.weightMatrix = weightMatrix;
         this.patientData = patientData;
+        this.targetData = targetData;
     }
 
     public WeightMatrix getWeightMatrix() {
@@ -25,6 +30,14 @@ public class NeuralTransferObject {
 
     public void setPatientData(PatientData patientData) {
         this.patientData = patientData;
+    }
+
+    public TargetData getTargetData() {
+        return targetData;
+    }
+
+    public void setTargetData(TargetData targetData) {
+        this.targetData = targetData;
     }
 
 }

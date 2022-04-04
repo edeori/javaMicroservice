@@ -1,5 +1,9 @@
 package hu.microservice.medicare.datastore.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import hu.microservice.medicare.datastore.WeightMatrix;
@@ -11,10 +15,25 @@ public class WeightMatrixService {
 
     private final WeightMatrixRepository repository;
     private final WeightMatrixMapper mapper;
+    private SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    private Date date = new Date(System.currentTimeMillis());
 
     public WeightMatrixService(WeightMatrixRepository repository, WeightMatrixMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
+    }
+
+    public WeightMatrix create(WeightMatrix weightMatrix) {
+        var entity = new WeightMatrixEntity();
+        entity.setId(UUID.randomUUID().toString());
+        entity.setBias(weightMatrix.getBias());
+        entity.setEta(weightMatrix.getEta());
+        entity.setNetworkLayerSizes(weightMatrix.getNetworkLayerSizes());
+        entity.setWeights(weightMatrix.getWeights());        
+        entity.setLastModification(formatter.format(date));
+
+        var saved = repository.save(entity);
+        return mapper.map(saved);
     }
 
     public WeightMatrix getById(String id) throws MatrixNotFound {
@@ -23,7 +42,7 @@ public class WeightMatrixService {
 
     public WeightMatrix updateById(String id, WeightMatrix weightMatrix) throws MatrixNotFound {
         var opt = repository.findById(id);
-        if(opt.isEmpty()) {
+        if (opt.isEmpty()) {
             throw new MatrixNotFound();
         }
         var entity = opt.get();
@@ -33,8 +52,11 @@ public class WeightMatrixService {
     }
 
     private void update(WeightMatrixEntity entity, WeightMatrix weightMatrix) {
-        // TODO Auto-generated method stub
-        
+        entity.setBias(weightMatrix.getBias());
+        entity.setEta(weightMatrix.getEta());
+        entity.setNetworkLayerSizes(weightMatrix.getNetworkLayerSizes());
+        entity.setWeights(weightMatrix.getWeights());
+        entity.setLastModification(formatter.format(date));
     }
 
 }

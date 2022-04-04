@@ -1,5 +1,6 @@
 package hu.microservice.medicare.datastore;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ public class HealthStatus {
     private String id;
     @NotNull
     private String patientId;
-    private Set<PotentialIllness> potentialIllnesses;
+    private Set<PotentialIllness> potentialIllnesses = new HashSet<PotentialIllness>();
 
     public String getId() {
         return id;

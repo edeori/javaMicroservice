@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class PotentialIllnessEntity {
     @Id
     private String id;
-    private int precent;
+    private int percent;
     private IllnessCategory illness;
     
     @ManyToOne
@@ -26,12 +26,12 @@ public class PotentialIllnessEntity {
         this.id = id;
     }
 
-    public int getPrecent() {
-        return precent;
+    public int getPercent() {
+        return percent;
     }
 
-    public void setPrecent(int precent) {
-        this.precent = precent;
+    public void setPercent(int precent) {
+        this.percent = precent;
     }
 
     public IllnessCategory getIllness() {

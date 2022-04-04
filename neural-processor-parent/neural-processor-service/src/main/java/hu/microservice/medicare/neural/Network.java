@@ -13,7 +13,7 @@ public class Network {
     public final int INPUT_SIZE;
     public final int OUTPUT_SIZE;
     public final int NETWORK_SIZE;
-
+    
     public Network(int... NETWORK_LAYER_SIZES) {
         this.NETWORK_LAYER_SIZES = NETWORK_LAYER_SIZES;
         this.INPUT_SIZE = NETWORK_LAYER_SIZES[0];
@@ -23,6 +23,30 @@ public class Network {
         this.output = new double[NETWORK_SIZE][];
         this.weights = new double[NETWORK_SIZE][][];
         this.bias = new double[NETWORK_SIZE][];
+        this.error_signal = new double[NETWORK_SIZE][];
+        this.output_derivative = new double[NETWORK_SIZE][];
+
+        for (int i = 0; i < NETWORK_SIZE; i++) {
+            this.output[i] = new double[NETWORK_LAYER_SIZES[i]];
+            this.error_signal[i] = new double[NETWORK_LAYER_SIZES[i]];
+            this.output_derivative[i] = new double[NETWORK_LAYER_SIZES[i]];
+            this.bias[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], 0.3, 0.7);
+
+            if (i > 0) {
+                weights[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], NETWORK_LAYER_SIZES[i-1], -0.3, 0.5);
+            }
+        }
+    }
+
+    public Network( double[][][] weights, double[][] bias, int... NETWORK_LAYER_SIZES) {
+        this.NETWORK_LAYER_SIZES = NETWORK_LAYER_SIZES;
+        this.INPUT_SIZE = NETWORK_LAYER_SIZES[0];
+        this.NETWORK_SIZE = NETWORK_LAYER_SIZES.length;
+        this.OUTPUT_SIZE = NETWORK_LAYER_SIZES[NETWORK_SIZE - 1];
+
+        this.output = new double[NETWORK_SIZE][];
+        this.weights = weights;
+        this.bias = bias;
         this.error_signal = new double[NETWORK_SIZE][];
         this.output_derivative = new double[NETWORK_SIZE][];
 
@@ -55,12 +79,15 @@ public class Network {
         return output[NETWORK_SIZE - 1];
     }
 
-    public void train(double[] input, double[] target, double eta) {
+    // return weights
+    public double[][][] train(double[] input, double[] target, double eta) {
         if (input.length != INPUT_SIZE || target.length != OUTPUT_SIZE)
-            return;
+            return null;
         calculate(input);
         backpropError(target);
         updateWeights(eta);
+        
+        return weights;
     }
 
     public void backpropError(double[] target) {
@@ -93,6 +120,22 @@ public class Network {
 
     private double sigmoid(double x) {
         return 1d / (1 + Math.exp(-x));
+    }
+
+    public double[][][] getWeights() {
+        return weights;
+    }
+
+    public void setWeights(double[][][] weights) {
+        this.weights = weights;
+    }
+
+    public double[][] getBias() {
+        return bias;
+    }
+
+    public void setBias(double[][] bias) {
+        this.bias = bias;
     }
 
 }

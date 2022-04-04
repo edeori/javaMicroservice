@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog 
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-    xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
     http://www.liquibase.org/xml/ns/pro 
     http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd 
     http://www.liquibase.org/xml/ns/dbchangelog 
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd
     ">
-	
+
 	<changeSet id="01" author="fmarton">
-		<modifyDataType
-			columnName="about"
-			newDataType="varchar(10000)"
-			tableName="about"/>
+		<preConditions onFail="MARK_RAN">
+			<or>
+				<tableExists tableName="about" />
+			</or>
+		</preConditions>
+		<dropTable cascadeConstraints="true" catalogName="cat" schemaName="public" tableName="about" />
 	</changeSet>
-	
-    <changeSet id="02" author="fmarton">
+
+	<changeSet id="02" author="fmarton">
+		<createTable tableName="about">
+			<column name="name_id" type="varchar(250)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="about" type="varchar(10000)">
+				<constraints nullable="false" />
+			</column>
+			<column name="header" type="varchar(1000)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="03" author="fmarton">
+		<preConditions>
+			<or>
+				<tableExists tableName="about" />
+			</or>
+		</preConditions>
 		<insert tableName="about">
-		  <column name="name_id" value="about"/>
-		  <column name="about" value="A mai világban egyre fontosabbá vált a magánegészségügyi szolgáltatók jelenléte. Mivel nem mindenki engedheti meg magának, hogy ad-hoc jelleggel válasszon egy kórházat, akiknél elvégezteti a vizsgálatokat, vagy kezelést, ezért sokan éves biztosítást kezdenek választani. Ezekhez a biztosításokhoz viszont elengedhetetlen egy olyan összetett ön-kórkép elemzés, ami alapján az ember eldöntheti, hogy melyik biztosítási ajánlat a legmegfelelőbb számára. Sajnos a többség nincsen tisztában a saját egészségügyi állapotával ilyen mélységekben, ezért ennek megkönnyítésére hozom létre a kalkulátorral ellátott ajánlatkészítő rendszert, ami kérdőív-szerű kérdéssor után tud egy jó közelítésű kalkulációt csinálni a lehetséges megbetegedésekre. Ezzel a rendszerrel nem csak a biztosítók munkáját lehet támogatni, de egy átfogó képet is kaphatnak a felhasználók az aktuális állapotukról.
+			<column name="name_id" value="about" />
+			<column name="about" value="A mai világban egyre fontosabbá vált a magánegészségügyi szolgáltatók jelenléte. Mivel nem mindenki engedheti meg magának, hogy ad-hoc jelleggel válasszon egy kórházat, akiknél elvégezteti a vizsgálatokat, vagy kezelést, ezért sokan éves biztosítást kezdenek választani. Ezekhez a biztosításokhoz viszont elengedhetetlen egy olyan összetett ön-kórkép elemzés, ami alapján az ember eldöntheti, hogy melyik biztosítási ajánlat a legmegfelelőbb számára. Sajnos a többség nincsen tisztában a saját egészségügyi állapotával ilyen mélységekben, ezért ennek megkönnyítésére hozom létre a kalkulátorral ellátott ajánlatkészítő rendszert, ami kérdőív-szerű kérdéssor után tud egy jó közelítésű kalkulációt csinálni a lehetséges megbetegedésekre. Ezzel a rendszerrel nem csak a biztosítók munkáját lehet támogatni, de egy átfogó képet is kaphatnak a felhasználók az aktuális állapotukról.
 			A project 3 fő részre bontható. Rendelkezésre kell álljon egy online felület, ahol a felhasználó fel tudja vinni az adatait és elküldeni a backend számára. Az adatok ezek után anonim módon mentésre kerülnek a később részletezendő tanuló algoritmus számára. Ezzel párhuzamosan egy java microservice elvégzi a kalkulációt arra vonatkozóan, hogy milyen típusú lehetséges betegségekre számíthat a felhasználó rövid és hosszútávon.
-			Kutatásom szerint csak olyan specifikus online szoftverek érhetők el amivel bizonyos tünetegyüttesekből számítható ki az, hogy milyen betegsége van aktuálisan a felhasználónak. Valószínűleg nem általánosan elérhető alkalmazások között szerepel olyan, akár biztosítók, pénzügyi intézetek, klinikák részéről amely egy ehhez hasonló koncepcióval jósol."/>
-		  <column name="header" value="Medicare Project"/>
+			Kutatásom szerint csak olyan specifikus online szoftverek érhetők el amivel bizonyos tünetegyüttesekből számítható ki az, hogy milyen betegsége van aktuálisan a felhasználónak. Valószínűleg nem általánosan elérhető alkalmazások között szerepel olyan, akár biztosítók, pénzügyi intézetek, klinikák részéről amely egy ehhez hasonló koncepcióval jósol." />
+			<column name="header" value="Medicare Project" />
 		</insert>
 	</changeSet>
-	
-	
+
 </databaseChangeLog>

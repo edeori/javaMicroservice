@@ -17,6 +17,11 @@ public class WeightMatrixApiImpl implements WeightApi {
     public WeightMatrixApiImpl(WeightMatrixService service) {
         this.service = service;
     }
+    
+    @Override
+    public WeightMatrix create(WeightMatrix weightMatrix) {
+        return service.create(weightMatrix);
+    }
 
     @Override
     public WeightMatrix getById(String id) {
@@ -35,5 +40,7 @@ public class WeightMatrixApiImpl implements WeightApi {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    
 
 }
