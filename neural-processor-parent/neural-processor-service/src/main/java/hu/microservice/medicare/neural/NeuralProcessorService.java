@@ -1,6 +1,9 @@
 package hu.microservice.medicare.neural;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ import hu.microservice.medicare.datastore.WeightMatrix;
 
 @Service
 public class NeuralProcessorService {
+    
+    Logger logger = Logger.getLogger(NeuralProcessorService.class.getName());
 
     public NeuralTransferObject init() {
         var networkSizes = new int[] { 100, 50, 50, 19 };
@@ -61,7 +66,7 @@ public class NeuralProcessorService {
         var input = transformPatientDataToInputDoubleArray(patientData);
         var target = transformTargetDataToTargetDoubleArray(targetData);
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             net.train(input, target, weightMatrix.getEta());
         }
         var result = net.train(input, target, weightMatrix.getEta());
@@ -81,7 +86,7 @@ public class NeuralProcessorService {
         var input = transformPatientDataToInputDoubleArray(patientData);
         var target = transformPatientDataToTargetDoubleArray(patientData.getKnownIllnesses());
 
-        for (int i = 0; i < 1000000000; i++) {
+        for (int i = 0; i < 100; i++) {
             net.train(input, target, weightMatrix.getEta());
         }
         var result = net.train(input, target, weightMatrix.getEta());
@@ -191,6 +196,12 @@ public class NeuralProcessorService {
         result = ArrayUtils.addAll(sportInfo, basicInfo);
         result = ArrayUtils.addAll(result, illnessInfo);
 
+        // Normalize data for better results
+        for (int i = 0; i < result.length; i++) {
+            result[i] = normalize(result[i]);
+            logger.log(Level.INFO, "data: " + result[i]);
+        }
+
         return result;
     }
 
@@ -253,11 +264,25 @@ public class NeuralProcessorService {
         return result;
     }
 
-    public static double booleanToDouble(boolean b) {
+    private static double booleanToDouble(boolean b) {
         if (b) {
             return 1;
         }
         return 0;
+    }
+
+    private static double normalize(double value) {
+        if (value >= 1 && value < 10) {
+            return value / 10;
+        } else if (value < 100) {
+            return value / 100;
+        } else if (value < 1000) {
+            return value / 1000;
+        } else if (value < 10000) {
+            return value / 10000;
+        }
+
+        return value;
     }
 
 }

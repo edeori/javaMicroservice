@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "name": "medicare.web.security",
+      "type": "hu.microservice.medicare.security.SecurityConfigurationProperties",
+      "sourceType": "hu.microservice.medicare.security.SecurityConfigurationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "medicare.web.security.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "hu.microservice.medicare.security.SecurityConfigurationProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "medicare.web.security.jwks-uri",
+      "type": "java.lang.String",
+      "sourceType": "hu.microservice.medicare.security.SecurityConfigurationProperties"
+    }
+  ],
+  "hints": []
+}
